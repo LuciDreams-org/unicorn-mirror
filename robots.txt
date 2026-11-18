@@ -1,0 +1,5 @@
+User-agent: Googlebot
+Disallow: /.well-known/
+
+User-agent: *
+Disallow: /.well-known/
