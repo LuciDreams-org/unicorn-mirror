@@ -5,6 +5,50 @@
 
 
 <head>
+<!-- LUCID-EARLY-TRACKING:START v1 (2026-11-18) - same early coverage as www.lucid.now (no blind spot for fast bounces):
+     GA4 + Google Ads gtag stubs queue immediately, gtag.js loads on browser idle (max 1 s); Meta pixel init + PageView direct in the head.
+     GTM (loaded below) still runs the rest of the container. Cost vs deferring all of it: about 10 pts (gtag) + 4 pts (Meta) mobile. -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-C7R39B4QSW');
+gtag('config', 'AW-17424075651');
+(function(){
+  var loaded=false;
+  function go(){if(loaded)return;loaded=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-C7R39B4QSW';document.head.appendChild(s);}
+  if('requestIdleCallback' in window) requestIdleCallback(go,{timeout:1000}); else setTimeout(go,300);
+})();
+</script>
+<script>
+(function () {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1012371517060574');
+    fbq('track', 'PageView');
+  })();
+  // De-dupe: the GTM container also fires Meta init + PageView (twice on get before this fix). Allow each pixel init and ONE PageView per page load.
+  (function(){var o=window.fbq,inited={},pv=true; if(!o)return;
+    var w=function(){var a=arguments;
+      if(a[0]==='init'){ if(inited[a[1]])return; inited[a[1]]=1; }
+      else if(a[0]==='track'&&a[1]==='PageView'){ if(!pv)return; pv=false; }
+      return o.apply(this,arguments); };
+    for(var k in o){ if(Object.prototype.hasOwnProperty.call(o,k)) w[k]=o[k]; }
+    // first init/PageView above already ran on the original: mark them as used
+    inited['1012371517060574']=1; pv=false;
+    window.fbq=w; if(window._fbq===o)window._fbq=w;
+  })();
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1012371517060574&ev=PageView&noscript=1"/></noscript>
+<!-- LUCID-EARLY-TRACKING:END -->
+
+
   
   
 	<meta charset="utf-8">
