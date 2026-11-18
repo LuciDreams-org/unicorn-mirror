@@ -38,7 +38,8 @@ gtag('config', 'AW-17424075651');
     var w=function(){var a=arguments;
       if(a[0]==='init'){ if(inited[a[1]])return; inited[a[1]]=1; }
       else if(a[0]==='track'&&a[1]==='PageView'){ if(!pv)return; pv=false; }
-      return o.apply(this,arguments); };
+      // delegate to the CURRENT pixel state: fbevents.js attaches callMethod to window.fbq (this wrapper), not to the original stub
+      return w.callMethod ? w.callMethod.apply(w,arguments) : o.apply(o,arguments); };
     for(var k in o){ if(Object.prototype.hasOwnProperty.call(o,k)) w[k]=o[k]; }
     // first init/PageView above already ran on the original: mark them as used
     inited['1012371517060574']=1; pv=false;
@@ -47,6 +48,9 @@ gtag('config', 'AW-17424075651');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1012371517060574&ev=PageView&noscript=1"/></noscript>
 <!-- LUCID-EARLY-TRACKING:END -->
+
+
+
 
 
   
@@ -460,7 +464,7 @@ src="https://www.facebook.com/tr?id=1314659709589686&ev=PageView&noscript=1"
   
 <!-- LUCID-CLICK-TRACKER:START v2 (2026-11-18) - logs EVERY button + CTA click to PostHog, GA4 and Meta.
      Event names: GA4 + PostHog = Button_Link_Click, Meta = ButtonClick (custom event, same as the GTM tag on www).
-     CTA event (every click on a call-to-action, sent to all 3 on both sites): GA4 + PostHog = cta_click, Meta = CTAClick.
+     CTA event (every click on a call-to-action, sent to all 3 on both sites): GA4 + PostHog = cta_click, Meta = CtaClicked (this pixel's Meta event-validation list silently drops CTAClick and CTAClicked; verified names only).
      GA4 convention = snake_case custom event; Meta custom events = PascalCase (no standard CTA event exists in either);
      cta_click is also the pre-existing PostHog name on www (script.js), so reports keep working.
      Params: cta_text, cta_id (?cta= value or element id), cta_classes, cta_url, cta_section, cta_position, cta_element, page_path.
@@ -556,14 +560,14 @@ src="https://www.facebook.com/tr?id=1314659709589686&ev=PageView&noscript=1"
           window.fbq('trackCustom','ButtonClick',{cta_text:p.cta_text,cta_id:p.cta_id,cta_classes:p.cta_classes,cta_url:p.cta_url,page_path:p.page_path,cta_section:p.cta_section,cta_position:p.cta_position,cta_element:p.cta_element});
         });
       }
-      // CTA event: GA4 + PostHog cta_click, Meta CTAClick. SYNCHRONOUS (a deferred call is lost when the click navigates away).
+      // CTA event: GA4 + PostHog cta_click, Meta CTAClicked. SYNCHRONOUS (a deferred call is lost when the click navigates away).
       // Pages can expose window.__lucidCtaExtraFor(el) -> richer params (www script.js: unique cta_id, cta_action...).
       var extra=null; try{ extra=window.__lucidCtaExtraFor?window.__lucidCtaExtraFor(el):null; }catch(x){}
       if(cta||extra){
         var q=Object.assign({},p,extra||{});
         // each platform in its own try/catch so one failing SDK never blocks the others
         try{ whenReady(function(){return typeof window.fbq==='function';},function(){
-          try{window.fbq('trackCustom','CTAClick',q);}catch(x){}
+          try{window.fbq('trackCustom','CtaClicked',q);}catch(x){}
         }); }catch(x){}
         try{ gtag('event','cta_click',Object.assign({send_to:GA4_ID},q)); }catch(x){}
         try{ whenReady(function(){return window.posthog&&typeof window.posthog.capture==='function';},function(){
