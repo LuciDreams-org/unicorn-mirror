@@ -757,6 +757,7 @@ window.addEventListener('load', function () {
   })();
   var emailInput = document.getElementById('email');
   var emailErr = document.getElementById('email-err');
+  try { var preEmail = new URLSearchParams(qs).get('email'); if (preEmail) emailInput.value = preEmail; } catch(e){}
   function submitEmail(){
     var v = (emailInput.value||'').trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { emailErr.style.display='block'; emailInput.focus(); return; }
