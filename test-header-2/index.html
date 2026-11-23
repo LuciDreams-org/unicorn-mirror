@@ -538,8 +538,9 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
 <body class="font-work-sans comps  " id="100512-1112300">
 <!-- LUCID-PROMO-BANNER:START v2-blackfriday (25% off annual plans + 2026 taxes, ends 2026-11-30 end of day ET) -->
 <style>
-#lucid-promo{position:-webkit-sticky;position:sticky;top:0;z-index:1001;background:#f4f4ff;color:#303030;font-family:'Work Sans',Arial,sans-serif;font-size:15px;line-height:1.3;text-align:center;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;border-bottom:1px solid #e3e3fb}
+#lucid-promo{position:-webkit-sticky;position:sticky;top:0;z-index:1001;background:#f4f4ff;color:#303030;font-size:16px;line-height:1.3;text-align:center;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;border-bottom:1px solid #e3e3fb}
 #uni-navigation-bar{top:var(--lp-h,0px)!important}
+#lucid-promo,#lucid-promo *{font-family:'Work Sans',sans-serif!important}
 #lucid-promo .lp-text{font-weight:500}
 #lucid-promo .lp-text b{font-weight:700;background:linear-gradient(90deg,#4fc3f7,#a56cf0 55%,#e040fb);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 #lucid-promo .lp-timer{display:flex;gap:6px;font-variant-numeric:tabular-nums}
@@ -550,24 +551,26 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
 #lucid-promo a.lp-cta:hover{background:#4d4ee0}
 #lucid-promo .lp-short{display:none}
 @media (max-width:600px){
-#lucid-promo{display:grid;grid-template-columns:1fr auto;column-gap:12px;row-gap:2px;align-items:center;text-align:left;font-size:12.5px;line-height:1.3;padding:8px 12px}
-#lucid-promo .lp-text{grid-column:1;grid-row:1;font-weight:400;color:#555}
-#lucid-promo .lp-text b{display:block;font-size:14.5px}
+#lucid-promo{display:grid;grid-template-columns:1fr auto;column-gap:12px;row-gap:2px;align-items:center;text-align:left;font-size:14.5px;line-height:1.3;padding:10px 12px}
+#lucid-promo .lp-text{grid-column:1;grid-row:1;font-weight:500;color:#303030}
+#lucid-promo .lp-text b{display:block;font-size:17px;margin-bottom:1px}
 #lucid-promo .lp-timer{grid-column:1;grid-row:2;gap:9px}
 #lucid-promo .lp-unit{background:none;border:0;box-shadow:none;padding:0;min-width:0;display:block}
-#lucid-promo .lp-unit span{display:inline;font-size:14px}
+#lucid-promo .lp-unit span{display:inline;font-size:16px}
 #lucid-promo .lp-unit small{display:none}
-#lucid-promo .lp-unit span::after{font-size:11px;font-weight:500;color:#6162fc;margin-left:1px}
+#lucid-promo .lp-unit span::after{font-size:12px;font-weight:500;color:#6162fc;margin-left:1px}
 #lucid-promo .lp-unit:nth-child(1) span::after{content:'d'}
 #lucid-promo .lp-unit:nth-child(2) span::after{content:'h'}
 #lucid-promo .lp-unit:nth-child(3) span::after{content:'m'}
 #lucid-promo .lp-unit:nth-child(4) span::after{content:'s'}
-#lucid-promo a.lp-cta{grid-column:2;grid-row:1 / span 2;padding:10px 14px;font-size:13.5px;text-align:center;white-space:nowrap;box-shadow:0 3px 8px rgba(97,98,252,.30)}
+#lucid-promo a.lp-cta{grid-column:2;grid-row:1 / span 2;padding:11px 16px;font-size:15px;text-align:center;white-space:nowrap;box-shadow:0 3px 8px rgba(97,98,252,.30)}
+#lucid-promo.lp-inline .lp-text b{display:inline;font-size:inherit;margin:0}
 #lucid-promo .lp-long{display:none}#lucid-promo .lp-short{display:inline}
 #lucid-promo .lp-dsk{display:none}
 }
+@media (max-width:380px){#lucid-promo{font-size:13.5px;column-gap:8px}#lucid-promo a.lp-cta{padding:10px 12px;font-size:14px}}
 </style>
-<div id="lucid-promo" role="region" aria-label="Black Friday offer">
+<div id="lucid-promo" class="lp-inline" role="region" aria-label="Black Friday offer">
   <div class="lp-text"><b>Black Friday:</b> 25% off annual plans, plus your 2026 taxes handled. <span style="white-space:nowrap">Ends Nov 30.</span></div>
   <a class="lp-cta" href="/intro?cta=BlackFridayBanner"><span class="lp-long">Book a free consult</span><span class="lp-short">Free consult</span></a>
 </div>
