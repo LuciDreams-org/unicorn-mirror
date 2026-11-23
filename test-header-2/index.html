@@ -548,11 +548,21 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
 #lucid-promo .lp-unit small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#6162fc}
 #lucid-promo a.lp-cta{background:#6162fc;color:#fff;text-decoration:none;font-weight:500;padding:9px 20px;border-radius:8px;white-space:nowrap;box-shadow:0 4px 12px rgba(97,98,252,.30);transition:background .15s}
 #lucid-promo a.lp-cta:hover{background:#4d4ee0}
-@media (max-width:600px){#lucid-promo{font-size:13px;padding:8px 12px;gap:6px 12px}#lucid-promo .lp-unit{min-width:40px;padding:2px 5px}#lucid-promo .lp-unit span{font-size:15px}}
+#lucid-promo .lp-short{display:none}
+@media (max-width:600px){
+#lucid-promo{display:grid;grid-template-columns:1fr auto;grid-auto-flow:row;column-gap:10px;row-gap:3px;align-items:center;text-align:left;font-size:12.5px;line-height:1.25;padding:7px 10px}
+#lucid-promo .lp-text{grid-column:1;grid-row:1}
+#lucid-promo .lp-timer{grid-column:1;grid-row:2;gap:7px;font-size:12px}
+#lucid-promo .lp-unit{background:none;border:0;box-shadow:none;padding:0;min-width:0;display:flex;align-items:baseline;gap:2px}
+#lucid-promo .lp-unit span{font-size:13px;display:inline}
+#lucid-promo .lp-unit small{font-size:11px;text-transform:none;letter-spacing:0;display:inline}
+#lucid-promo a.lp-cta{grid-column:2;grid-row:1 / span 2;padding:9px 12px;font-size:13px;text-align:center;white-space:nowrap;box-shadow:0 3px 8px rgba(97,98,252,.30)}
+#lucid-promo .lp-long{display:none}#lucid-promo .lp-short{display:inline}
+}
 </style>
 <div id="lucid-promo" role="region" aria-label="Black Friday offer">
   <div class="lp-text"><b>Black Friday:</b> 25% off annual plans, plus your 2026 taxes handled. <span style="white-space:nowrap">Ends Nov 30.</span></div>
-  <a class="lp-cta" href="/intro?cta=BlackFridayBanner">Book a free consult</a>
+  <a class="lp-cta" href="/intro?cta=BlackFridayBanner"><span class="lp-long">Book a free consult</span><span class="lp-short">Free consult</span></a>
 </div>
 <script>
 (function(){
