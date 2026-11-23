@@ -536,16 +536,17 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
 </head>
 
 <body class="font-work-sans comps  " id="100512-1112300">
-<!-- LUCID-PROMO-BANNER:START v1 (2026 cleanup 50% off, ends 2026-12-10 end of day ET) -->
+<!-- LUCID-PROMO-BANNER:START v2 (2026 cleanup 50% off, ends 2026-12-10 end of day ET) -->
 <style>
-#lucid-promo{background:#01396B;color:#fff;font-family:'Work Sans',Arial,sans-serif;font-size:15px;line-height:1.3;text-align:center;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;position:relative;z-index:1001}
+#lucid-promo{position:-webkit-sticky;position:sticky;top:0;z-index:1001;background:linear-gradient(90deg,#6162fc 0%,#7a5cf5 55%,#9a5ce8 100%);color:#fff;font-family:'Work Sans',Arial,sans-serif;font-size:15px;line-height:1.3;text-align:center;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(97,98,252,.25)}
+#uni-navigation-bar{top:var(--lp-h,0px)!important}
 #lucid-promo .lp-text b{font-weight:700}
 #lucid-promo .lp-timer{display:flex;gap:6px;font-variant-numeric:tabular-nums}
-#lucid-promo .lp-unit{background:rgba(255,255,255,.14);border-radius:6px;padding:3px 7px;min-width:46px}
+#lucid-promo .lp-unit{background:rgba(255,255,255,.18);border-radius:6px;padding:3px 7px;min-width:46px}
 #lucid-promo .lp-unit span{display:block;font-weight:700;font-size:17px}
-#lucid-promo .lp-unit small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;opacity:.8}
-#lucid-promo a.lp-cta{background:#F90473;color:#fff;text-decoration:none;font-weight:700;padding:9px 18px;border-radius:8px;white-space:nowrap}
-#lucid-promo a.lp-cta:hover{background:#e00467}
+#lucid-promo .lp-unit small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;opacity:.85}
+#lucid-promo a.lp-cta{background:#fff;color:#4d4ee0;text-decoration:none;font-weight:700;padding:9px 18px;border-radius:8px;white-space:nowrap}
+#lucid-promo a.lp-cta:hover{background:#f0f0ff}
 @media (max-width:600px){#lucid-promo{font-size:13px;padding:8px 12px;gap:6px 12px}#lucid-promo .lp-unit{min-width:40px;padding:2px 5px}#lucid-promo .lp-unit span{font-size:15px}}
 </style>
 <div id="lucid-promo" role="region" aria-label="Limited time offer">
@@ -562,11 +563,13 @@ f="XMLHttpRequest",g._w={},g._w[f]=m[f],g._w[s]=m[s],m[s]&&(m[s]=function(){retu
 (function(){
   var el=document.getElementById('lucid-promo');if(!el)return;
   var END=Date.UTC(2026,11,11,4,59,59); /* Dec 10 2026 23:59:59 ET (EST, UTC-5) */
+  var H=function(){document.documentElement.style.setProperty('--lp-h',(el.style.display==='none'?0:el.offsetHeight)+'px')};
+  H();window.addEventListener('resize',H);window.addEventListener('load',H);if(window.ResizeObserver)new ResizeObserver(H).observe(el);
   var n={};['d','h','m','s'].forEach(function(k){n[k]=el.querySelector('[data-lp="'+k+'"]')});
   function p(x){return x<10?'0'+x:''+x}
   function tick(){
     var t=END-Date.now();
-    if(t<=0){el.style.display='none';return false}
+    if(t<=0){el.style.display='none';H();return false}
     var s=Math.floor(t/1000);
     n.d.textContent=Math.floor(s/86400);n.h.textContent=p(Math.floor(s%86400/3600));
     n.m.textContent=p(Math.floor(s%3600/60));n.s.textContent=p(s%60);return true;
