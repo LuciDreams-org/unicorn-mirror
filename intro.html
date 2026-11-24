@@ -456,13 +456,26 @@ window.addEventListener('load', function () {
   <!-- ============ SCREEN 3: SITUATION (one of 6 versions, set by service answer) ============ -->
   <section class="screen" id="s-situation">
     <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:100%"></i></div>
+    <div class="bar"><i style="width:75%"></i></div>
     <h2 class="q" id="sit-q"></h2>
     <p class="qsub" id="sit-sub"></p>
     <div class="opts" id="opts-situation" data-step="situation"></div>
   </section>
 
-  <!-- ============ SCREEN 4: MEETING-READY (evaluating) ============ -->
+  <!-- ============ SCREEN 4: PHONE ============ -->
+  <section class="screen" id="s-phone">
+    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <div class="bar"><i style="width:100%"></i></div>
+    <h2 class="q">What's the best <span class="hl">phone number</span> to reach you?</h2>
+    <p class="qsub">We'll only use this to confirm your consultation.</p>
+    <label class="label" for="phone">Phone number</label>
+    <input class="field" id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
+    <div class="err" id="phone-err">Please enter a valid phone number.</div>
+    <div class="spacer"></div>
+    <button class="cta" id="phone-continue">Continue <span>&#8594;</span></button>
+  </section>
+
+  <!-- ============ SCREEN 5: MEETING-READY (evaluating) ============ -->
   <section class="screen center" id="s-eval">
     <img class="logo-top" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
     <div class="evalwrap">
@@ -476,7 +489,7 @@ window.addEventListener('load', function () {
     </div>
   </section>
 
-  <!-- ============ SCREEN 5: BOOK ============ -->
+  <!-- ============ SCREEN 6: BOOK ============ -->
   <section class="screen" id="s-book">
     <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
     <h1 class="bk-h1">You're a strong fit.</h1>
@@ -513,10 +526,13 @@ window.addEventListener('load', function () {
   if (window.__intro) return;
   var FUNNEL_ID='9001', FUNNEL_NAME='email-hero-native', GA4_ID='G-C7R39B4QSW';
   var ENDPOINT='https://zellify-ingest.49-13-173-94.sslip.io/events', KEY='Hk2qD9M1DpgyTQSKnEkrG9IECCTcqba3SgFrym3RzYs';
-  var SLUG={service:'service',situation:'situation',welcome:'email',evaluating:'meeting-ready',book:'book'};
-  // Reordered 2026-11-24 (get.lucid.now only): email-first test, then entity_type question removed
-  // entirely. Real click-through order is now welcome(email) -> service -> situation -> evaluating -> book.
-  var ORDER=['welcome','service','situation','evaluating','book'];
+  var SLUG={service:'service',situation:'situation',phone:'phone',welcome:'email',evaluating:'meeting-ready',book:'book'};
+  // Reordered 2026-11-24 (get.lucid.now only): email-first test, entity_type question removed
+  // entirely, phone question added before eval. Real click-through order is now
+  // welcome(email) -> service -> situation -> phone -> evaluating -> book. Note: 'phone' isn't in the
+  // shared cross-funnel PAGE_ORDER (same caveat already flagged for this funnel's broken deepest_page
+  // ranking -- see docs/marketing-traffic-flow.md section 9).
+  var ORDER=['welcome','service','situation','phone','evaluating','book'];
   var ps=new URLSearchParams(location.search||'');
   var OFF=ps.has('tracking_off')||ps.get('test')==='1';
   var I={off:OFF}; window.__intro=I;
@@ -571,7 +587,7 @@ window.addEventListener('load', function () {
     for(var k in d) e[k]=d[k];
     if(email){ e.email=email; e.data={email:email}; }
     var a=answersRef||{};
-    var ans={entry_source:'native'}; ['service','situation'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
+    var ans={entry_source:'native'}; ['service','situation','phone'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
     e.answers=ans;
     if(extra) for(var x in extra) e[x]=extra[x];
     if(e.element_tag!==undefined){ e.data=Object.assign(e.data||{},{cta_label:e.cta_label,cta_href:e.cta_href,element_tag:e.element_tag,element_id:e.element_id,element_name:e.element_name,element_type:e.element_type,element_role:e.element_role}); }
@@ -752,7 +768,7 @@ window.addEventListener('load', function () {
     bindOpts('opts-situation', null, function(k, label){
       answers.situation = k;
       track('z:answer', { step:'situation', value:k, label:label });
-      setTimeout(function(){ runEval(); }, 180);
+      setTimeout(function(){ show('s-phone','phone'); }, 180);
     });
   }
 
@@ -792,6 +808,19 @@ window.addEventListener('load', function () {
   }
   document.getElementById('email-continue').addEventListener('click', submitEmail);
   emailInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitEmail(); });
+
+  var phoneInput = document.getElementById('phone');
+  var phoneErr = document.getElementById('phone-err');
+  function submitPhone(){
+    var v = (phoneInput.value||'').trim();
+    if ((v.replace(/\D/g,'')).length < 7) { phoneErr.style.display='block'; phoneInput.focus(); return; }
+    phoneErr.style.display='none';
+    answers.phone = v;
+    track('z:answer', { step:'phone', value:v, label:v });
+    runEval();
+  }
+  document.getElementById('phone-continue').addEventListener('click', submitPhone);
+  phoneInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitPhone(); });
 
   function runEval(){
     show('s-eval','evaluating');
