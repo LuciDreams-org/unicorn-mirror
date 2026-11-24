@@ -428,27 +428,13 @@ window.addEventListener('load', function () {
   <!-- ============ SCREEN 3: SITUATION (one of 6 versions, set by service answer) ============ -->
   <section class="screen" id="s-situation">
     <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:75%"></i></div>
+    <div class="bar"><i style="width:100%"></i></div>
     <h2 class="q" id="sit-q"></h2>
     <p class="qsub" id="sit-sub"></p>
     <div class="opts" id="opts-situation" data-step="situation"></div>
   </section>
 
-  <!-- ============ SCREEN 4: ENTITY TYPE ============ -->
-  <section class="screen" id="s-entity">
-    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:100%"></i></div>
-    <h2 class="q">What's your <span class="hl">entity type</span>?</h2>
-    <div class="opts" id="opts-entity" data-step="entity_type">
-      <button class="opt" data-k="delaware_c_corp">Delaware C Corp</button>
-      <button class="opt" data-k="partnership">Partnership</button>
-      <button class="opt" data-k="llc">LLC</button>
-      <button class="opt" data-k="s_corp">S Corp</button>
-      <button class="opt" data-k="c_corp_not_delaware">C Corp (not Delaware)</button>
-    </div>
-  </section>
-
-  <!-- ============ SCREEN 5: MEETING-READY (evaluating) ============ -->
+  <!-- ============ SCREEN 4: MEETING-READY (evaluating) ============ -->
   <section class="screen center" id="s-eval">
     <img class="logo-top" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
     <div class="evalwrap">
@@ -462,7 +448,7 @@ window.addEventListener('load', function () {
     </div>
   </section>
 
-  <!-- ============ SCREEN 6: BOOK ============ -->
+  <!-- ============ SCREEN 5: BOOK ============ -->
   <section class="screen" id="s-book">
     <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
     <h1 class="bk-h1">You're a strong fit.</h1>
@@ -499,11 +485,10 @@ window.addEventListener('load', function () {
   if (window.__intro) return;
   var FUNNEL_ID='9001', FUNNEL_NAME='email-hero-native', GA4_ID='G-C7R39B4QSW';
   var ENDPOINT='https://zellify-ingest.49-13-173-94.sslip.io/events', KEY='Hk2qD9M1DpgyTQSKnEkrG9IECCTcqba3SgFrym3RzYs';
-  var SLUG={entity_type:'specialty',service:'service',situation:'situation',welcome:'email',evaluating:'meeting-ready',book:'book'};
-  // Reordered 2026-11-24 (email-first test, get.lucid.now only): real click-through order is now
-  // welcome(email) -> service -> situation -> entity_type -> evaluating -> book. SLUG values are
-  // unchanged (still the shared cross-funnel names), only the navigation order changed below.
-  var ORDER=['welcome','service','situation','entity_type','evaluating','book'];
+  var SLUG={service:'service',situation:'situation',welcome:'email',evaluating:'meeting-ready',book:'book'};
+  // Reordered 2026-11-24 (get.lucid.now only): email-first test, then entity_type question removed
+  // entirely. Real click-through order is now welcome(email) -> service -> situation -> evaluating -> book.
+  var ORDER=['welcome','service','situation','evaluating','book'];
   var ps=new URLSearchParams(location.search||'');
   var OFF=ps.has('tracking_off')||ps.get('test')==='1';
   var I={off:OFF}; window.__intro=I;
@@ -558,7 +543,7 @@ window.addEventListener('load', function () {
     for(var k in d) e[k]=d[k];
     if(email){ e.email=email; e.data={email:email}; }
     var a=answersRef||{};
-    var ans={entry_source:'native'}; ['entity_type','service','situation'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
+    var ans={entry_source:'native'}; ['service','situation'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
     e.answers=ans;
     if(extra) for(var x in extra) e[x]=extra[x];
     if(e.element_tag!==undefined){ e.data=Object.assign(e.data||{},{cta_label:e.cta_label,cta_href:e.cta_href,element_tag:e.element_tag,element_id:e.element_id,element_name:e.element_name,element_type:e.element_type,element_role:e.element_role}); }
@@ -630,7 +615,7 @@ window.addEventListener('load', function () {
       e=base('booked_heuristic_fired',{page_slug:'book',action:'booking_intent',booked_event_id:'',booked_dwell_ms:8000,booked_pixel_available:typeof window.fbq==='function'});
       e.booked_event_id=e.event_id; enqueue(e);
       fbCustom('Booking Intent',{page_location:location.href,page_slug:'book',funnel_id:FUNNEL_ID,campaign_id:CAMPAIGN,booked_dwell_ms:8000,source:'native_intro_funnel',
-        specialty:a.entity_type||'',service:a.service||'',situation:a.situation||''},e.event_id,10000);
+        service:a.service||'',situation:a.situation||''},e.event_id,10000);
     }
   };
   // ---- every click, anywhere (capture phase) -> cta_clicked; option picks carry the picked value in cta_label + answers ----
@@ -722,12 +707,6 @@ window.addEventListener('load', function () {
     });
   }
 
-  bindOpts('opts-entity', null, function(k, label){
-    answers.entity_type = k;
-    track('z:answer', { step:'entity_type', value:k, label:label });
-    setTimeout(function(){ runEval(); }, 180);
-  });
-
   bindOpts('opts-service', null, function(k, label){
     answers.service = k;
     track('z:answer', { step:'service', value:k, label:label });
@@ -745,7 +724,7 @@ window.addEventListener('load', function () {
     bindOpts('opts-situation', null, function(k, label){
       answers.situation = k;
       track('z:answer', { step:'situation', value:k, label:label });
-      setTimeout(function(){ show('s-entity','entity_type'); }, 180);
+      setTimeout(function(){ runEval(); }, 180);
     });
   }
 
