@@ -456,7 +456,7 @@ window.addEventListener('load', function () {
   <!-- ============ SCREEN 3: SITUATION (one of 6 versions, set by service answer) ============ -->
   <section class="screen" id="s-situation">
     <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:75%"></i></div>
+    <div class="bar"><i style="width:100%"></i></div>
     <h2 class="q" id="sit-q"></h2>
     <p class="qsub" id="sit-sub"></p>
     <div class="opts" id="opts-situation" data-step="situation"></div>
@@ -464,15 +464,27 @@ window.addEventListener('load', function () {
 
   <!-- ============ SCREEN 4: PHONE ============ -->
   <section class="screen" id="s-phone">
-    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:100%"></i></div>
-    <h2 class="q">What's the best <span class="hl">phone number</span> to reach you?</h2>
-    <p class="qsub">We'll only use this to confirm your consultation.</p>
+    <div class="herohead">
+      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
+    </div>
     <label class="label" for="phone">Phone number</label>
     <input class="field" id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
     <div class="err" id="phone-err">Please enter a valid phone number.</div>
+    <div class="testi">
+      <div class="inner">
+        <div class="top">
+          <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 1.8 3 .1 1 2.8 2.3 1.9-.8 2.9.8 2.9-2.3 1.9-1 2.8-3 .1L12 22l-2.4-1.8-3-.1-1-2.8L3.3 15.3l.8-2.9-.8-2.9L5.6 7.6l1-2.8 3-.1z"/><path d="M10.6 14.6l-2-2L7.2 14l3.4 3.4L17 11l-1.4-1.4z" fill="#fff"/></svg> FROM A LUCID CLIENT</span>
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <p class="quote">&ldquo;Wow, you guys are lightning fast. Sometime you will have to show me behind the scenes what you do and how you do it! CFOs for life for me.&rdquo;</p>
+        <div class="who">
+          <img src="https://unicorn-images.b-cdn.net/f1d4bcb2-372c-464f-9a0f-2b5933803873?optimizer=gif" alt="" />
+          <div><div class="n">Erin Fitzgerald</div><div class="r">Business Owner, Terraway</div></div>
+        </div>
+      </div>
+    </div>
     <div class="spacer"></div>
-    <button class="cta" id="phone-continue">Continue <span>&#8594;</span></button>
+    <button class="cta" id="phone-continue">Finish <span>&#8594;</span></button>
   </section>
 
   <!-- ============ SCREEN 5: MEETING-READY (evaluating) ============ -->
