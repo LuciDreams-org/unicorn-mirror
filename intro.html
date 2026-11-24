@@ -384,18 +384,30 @@ window.addEventListener('load', function () {
 </script>
 <div class="app">
 
-  <!-- ============ SCREEN 1: ENTITY TYPE ============ -->
-  <section class="screen active" id="s-entity">
-    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:25%"></i></div>
-    <h2 class="q">What's your <span class="hl">entity type</span>?</h2>
-    <div class="opts" id="opts-entity" data-step="entity_type">
-      <button class="opt" data-k="delaware_c_corp">Delaware C Corp</button>
-      <button class="opt" data-k="partnership">Partnership</button>
-      <button class="opt" data-k="llc">LLC</button>
-      <button class="opt" data-k="s_corp">S Corp</button>
-      <button class="opt" data-k="c_corp_not_delaware">C Corp (not Delaware)</button>
+  <!-- ============ SCREEN 1: EMAIL ============ -->
+  <section class="screen active" id="s-welcome">
+    <div id="seg-head-wrap"></div>
+    <div class="herohead">
+      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
     </div>
+    <label class="label" for="email">Email</label>
+    <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourbusiness.com" />
+    <div class="err" id="email-err">Please enter a valid email.</div>
+    <div class="testi">
+      <div class="inner">
+        <div class="top">
+          <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 1.8 3 .1 1 2.8 2.3 1.9-.8 2.9.8 2.9-2.3 1.9-1 2.8-3 .1L12 22l-2.4-1.8-3-.1-1-2.8L3.3 15.3l.8-2.9-.8-2.9L5.6 7.6l1-2.8 3-.1z"/><path d="M10.6 14.6l-2-2L7.2 14l3.4 3.4L17 11l-1.4-1.4z" fill="#fff"/></svg> FROM A LUCID CLIENT</span>
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <p class="quote">&ldquo;Lucid got our books current and our taxes filed on time. Now I know exactly what we make and where every dollar goes.&rdquo;</p>
+        <div class="who">
+          <img src="https://www.lucid.now/assets/img/claire-bennett.webp" alt="" />
+          <div><div class="n">Dr. Claire Bennett</div><div class="r">Owner at Sterling Ortho</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <button class="cta" id="email-continue">Continue <span>&#8594;</span></button>
   </section>
 
   <!-- ============ SCREEN 2: SERVICE ============ -->
@@ -422,30 +434,18 @@ window.addEventListener('load', function () {
     <div class="opts" id="opts-situation" data-step="situation"></div>
   </section>
 
-  <!-- ============ SCREEN 4: EMAIL ============ -->
-  <section class="screen" id="s-welcome">
-    <div id="seg-head-wrap"></div>
-    <div class="herohead">
-      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
+  <!-- ============ SCREEN 4: ENTITY TYPE ============ -->
+  <section class="screen" id="s-entity">
+    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <div class="bar"><i style="width:100%"></i></div>
+    <h2 class="q">What's your <span class="hl">entity type</span>?</h2>
+    <div class="opts" id="opts-entity" data-step="entity_type">
+      <button class="opt" data-k="delaware_c_corp">Delaware C Corp</button>
+      <button class="opt" data-k="partnership">Partnership</button>
+      <button class="opt" data-k="llc">LLC</button>
+      <button class="opt" data-k="s_corp">S Corp</button>
+      <button class="opt" data-k="c_corp_not_delaware">C Corp (not Delaware)</button>
     </div>
-    <label class="label" for="email">Email</label>
-    <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourbusiness.com" />
-    <div class="err" id="email-err">Please enter a valid email.</div>
-    <div class="testi">
-      <div class="inner">
-        <div class="top">
-          <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 1.8 3 .1 1 2.8 2.3 1.9-.8 2.9.8 2.9-2.3 1.9-1 2.8-3 .1L12 22l-2.4-1.8-3-.1-1-2.8L3.3 15.3l.8-2.9-.8-2.9L5.6 7.6l1-2.8 3-.1z"/><path d="M10.6 14.6l-2-2L7.2 14l3.4 3.4L17 11l-1.4-1.4z" fill="#fff"/></svg> FROM A LUCID CLIENT</span>
-          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        </div>
-        <p class="quote">&ldquo;Lucid got our books current and our taxes filed on time. Now I know exactly what we make and where every dollar goes.&rdquo;</p>
-        <div class="who">
-          <img src="https://www.lucid.now/assets/img/claire-bennett.webp" alt="" />
-          <div><div class="n">Dr. Claire Bennett</div><div class="r">Owner at Sterling Ortho</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="spacer"></div>
-    <button class="cta" id="email-continue">Continue <span>&#8594;</span></button>
   </section>
 
   <!-- ============ SCREEN 5: MEETING-READY (evaluating) ============ -->
@@ -500,7 +500,10 @@ window.addEventListener('load', function () {
   var FUNNEL_ID='9001', FUNNEL_NAME='email-hero-native', GA4_ID='G-C7R39B4QSW';
   var ENDPOINT='https://zellify-ingest.49-13-173-94.sslip.io/events', KEY='Hk2qD9M1DpgyTQSKnEkrG9IECCTcqba3SgFrym3RzYs';
   var SLUG={entity_type:'specialty',service:'service',situation:'situation',welcome:'email',evaluating:'meeting-ready',book:'book'};
-  var ORDER=['entity_type','service','situation','welcome','evaluating','book'];
+  // Reordered 2026-11-24 (email-first test, get.lucid.now only): real click-through order is now
+  // welcome(email) -> service -> situation -> entity_type -> evaluating -> book. SLUG values are
+  // unchanged (still the shared cross-funnel names), only the navigation order changed below.
+  var ORDER=['welcome','service','situation','entity_type','evaluating','book'];
   var ps=new URLSearchParams(location.search||'');
   var OFF=ps.has('tracking_off')||ps.get('test')==='1';
   var I={off:OFF}; window.__intro=I;
@@ -545,10 +548,10 @@ window.addEventListener('load', function () {
     var e={schema_version:1,contract_version:2,event_id:uuid(),event_type:type,occurred_at:now(),funnel_id:FUNNEL_ID,website_id:FUNNEL_ID,
       page_slug:SLUG[curStep]||curStep,url:L.href.slice(0,1000),url_path:L.pathname,url_query:(L.search||'').slice(0,800),
       visitor_id:visitorId,visit_id:visitId,visit_number:visitNo,is_returning_visitor:returning||visitNo>1,first_seen_at:firstSeen,
-      attribution_schema_version:3,referrer:entryReferrer,entry_page:'specialty',landing_url:L.href.slice(0,1000),
+      attribution_schema_version:3,referrer:entryReferrer,entry_page:'email',landing_url:L.href.slice(0,1000),
       entry_url_path:L.pathname,entry_url_query:(L.search||'').slice(0,800),entry_url_params_json:JSON.stringify(params),
       url_params:params,fbp:cookie('_fbp')||fb.fbp||'',fbc:cookie('_fbc')||fbcBuilt||fb.fbc||'',cta:params.cta||'',
-      first_touch_landing_url:fb.landing||'',first_touch_entry_referrer:fb.referrer||'',first_touch_entry_page:'specialty',first_touch_entry_at:fb.at||'',
+      first_touch_landing_url:fb.landing||'',first_touch_entry_referrer:fb.referrer||'',first_touch_entry_page:'email',first_touch_entry_at:fb.at||'',
       first_touch_entry_url_params_json:JSON.stringify(fp),first_touch_cta:fp.cta||'',
       site:L.hostname,funnel_variant:FUNNEL_NAME};
     CLICKIDS.concat(UTMS).forEach(function(k){e[k]=params[k]||'';e['first_touch_'+k]=fp[k]||'';});
@@ -722,7 +725,7 @@ window.addEventListener('load', function () {
   bindOpts('opts-entity', null, function(k, label){
     answers.entity_type = k;
     track('z:answer', { step:'entity_type', value:k, label:label });
-    setTimeout(function(){ show('s-service','service'); }, 180);
+    setTimeout(function(){ runEval(); }, 180);
   });
 
   bindOpts('opts-service', null, function(k, label){
@@ -742,7 +745,7 @@ window.addEventListener('load', function () {
     bindOpts('opts-situation', null, function(k, label){
       answers.situation = k;
       track('z:answer', { step:'situation', value:k, label:label });
-      setTimeout(function(){ show('s-welcome','welcome'); }, 180);
+      setTimeout(function(){ show('s-entity','entity_type'); }, 180);
     });
   }
 
@@ -765,7 +768,7 @@ window.addEventListener('load', function () {
     answers.email = v;
     try { if (window.posthog) posthog.identify(v, { email: v }); } catch(e){}
     track('z:email_captured', { email: v });
-    runEval();
+    show('s-service','service');
   }
   document.getElementById('email-continue').addEventListener('click', submitEmail);
   emailInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitEmail(); });
@@ -799,7 +802,7 @@ window.addEventListener('load', function () {
     setTimeout(function(){ track('z:booked_heuristic_fired', {}); }, 8000);
   }
 
-  show('s-entity','entity_type');
+  show('s-welcome','welcome');
 })();
 </script>
 </body>
