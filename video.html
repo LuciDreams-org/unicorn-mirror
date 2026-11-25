@@ -365,8 +365,8 @@ window.addEventListener('load', function () {
     <div class="herohead">
       <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
     </div>
-    <div class="video-embed-wrap">
-      <iframe src="https://www.youtube.com/embed/TP5NwXFckZc?playsinline=1&rel=0" title="Lucid - One Solution for All Your Medical Practice Finances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-embed-wrap" id="video-embed-wrap">
+      <iframe src="https://www.youtube.com/embed/TP5NwXFckZc?playsinline=1&rel=0&autoplay=1&mute=1" title="Lucid - One Solution for All Your Medical Practice Finances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
     <div class="spacer"></div>
     <button class="cta" id="video-continue">Continue <span>&#8594;</span></button>
@@ -805,6 +805,29 @@ window.addEventListener('load', function () {
     track('z:calendar_view', {});
     setTimeout(function(){ track('z:booked_heuristic_fired', {}); }, 8000);
   }
+
+  // Size the video to the real device viewport (edge-to-edge, never past it) rather than
+  // trusting a fixed CSS width -- measures .app's own padding so it keeps working even if
+  // that padding value changes later, and re-measures on resize/rotate.
+  (function(){
+    var wrap = document.getElementById('video-embed-wrap');
+    var app = document.querySelector('.app');
+    if (!wrap || !app) return;
+    function fit(){
+      var vw = document.documentElement.clientWidth || window.innerWidth;
+      var inset = 6; // stay a hair inside the true edge on every device -- never overflow it
+      var targetW = Math.max(240, Math.round(vw - inset));
+      var cs = getComputedStyle(app);
+      var padL = parseFloat(cs.paddingLeft) || 0;
+      var appLeft = app.getBoundingClientRect().left;
+      var extraCenter = (vw - targetW) / 2;
+      wrap.style.width = targetW + 'px';
+      wrap.style.marginLeft = (-(appLeft) - padL + extraCenter) + 'px';
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', function(){ setTimeout(fit, 50); });
+  })();
 
   show('s-video','video');
 })();
