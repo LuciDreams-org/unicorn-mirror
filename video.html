@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- LUCID-EARLY-TRACKING:START v1 (2026-11-18) - same early coverage as the rest of get.lucid.now:
+     GA4 + Google Ads gtag stubs queue immediately, gtag.js loads on browser idle (max 1s); Meta pixel init + PageView direct in the head. -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-C7R39B4QSW');
+gtag('config', 'AW-17424075651');
+(function(){
+  var loaded=false;
+  function go(){if(loaded)return;loaded=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-C7R39B4QSW';document.head.appendChild(s);}
+  if('requestIdleCallback' in window) requestIdleCallback(go,{timeout:1000}); else setTimeout(go,300);
+})();
+</script>
+<script>
+(function () {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1012371517060574');
+    fbq('track', 'PageView');
+  })();
+  // De-dupe: the GTM container also fires Meta init + PageView (twice on get before this fix). Allow each pixel init and ONE PageView per page load.
+  (function(){var o=window.fbq,inited={},pv=true; if(!o)return;
+    var w=function(){var a=arguments;
+      if(a[0]==='init'){ if(inited[a[1]])return; inited[a[1]]=1; }
+      else if(a[0]==='track'&&a[1]==='PageView'){ if(!pv)return; pv=false; }
+      // delegate to the CURRENT pixel state: fbevents.js attaches callMethod to window.fbq (this wrapper), not to the original stub
+      return w.callMethod ? w.callMethod.apply(w,arguments) : o.apply(o,arguments); };
+    for(var k in o){ if(Object.prototype.hasOwnProperty.call(o,k)) w[k]=o[k]; }
+    // first init/PageView above already ran on the original: mark them as used
+    inited['1012371517060574']=1; pv=false;
+    window.fbq=w; if(window._fbq===o)window._fbq=w;
+  })();
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1012371517060574&ev=PageView&noscript=1"/></noscript>
+<!-- LUCID-EARLY-TRACKING:END -->
+
+<!-- RB2B visitor identification (added 2026-11-25) -->
+<script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("QO92DH7VXQN7");</script>
+
+<!-- Google Tag Manager: deferred load+3s, same pattern as www.lucid.now -->
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+(function(){
+  var done=false, evs=['scroll','click','touchstart','keydown','mousemove'];
+  function load(){
+    if(done) return; done=true;
+    evs.forEach(function(e){window.removeEventListener(e,load,{passive:true});});
+    (function(w,d,s,l,i){var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5WW4FVXM');
+  }
+  evs.forEach(function(e){window.addEventListener(e,load,{passive:true,once:true});});
+  window.addEventListener('load',function(){setTimeout(load,3000);});
+})();
+</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>See Lucid in action</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="https://www.lucid.now/assets/img/logo-mark.webp" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<!-- PostHog (same project as www.lucid.now) -->
+<script defer src="https://ingest.lucid.now/ingest/static/array.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      posthog.init('phc_kKt5zMf32qrGUGyWjcwsvBB8esQ8FJn7FPYitpt8bqZe', {
+        api_host: 'https://ingest.lucid.now/ingest',
+        autocapture: true, capture_pageview: true, capture_pageleave: true,
+        disable_session_recording: true, disable_surveys: true
+      });
+    } catch (e) {}
+  });
+</script>
+<style>
+  :root{
+    --bg:#f3f4f6; --card:#ffffff; --ink:#171a2e; --muted:#6b7280;
+    --purple1:#8B5CF6; --purple2:#7C3AED; --ring:#e6e8ee;
+    --green-bg:#eaf6ef; --green-br:#cfe9d8; --green-tx:#1f9d57; --gold:#f5a623;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--ink);font-family:"Lato",system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;min-height:100dvh;display:flex;justify-content:center}
+  .app{width:100%;max-width:440px;min-height:100vh;min-height:100dvh;background:var(--bg);display:flex;flex-direction:column;padding:26px 22px 28px;position:relative}
+  h1,h2,h3,.ws{font-family:"Work Sans","Lato",sans-serif}
+  .screen{display:none;flex:1;flex-direction:column;animation:fade .35s ease}
+  .screen.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .herohead{display:flex;align-items:center;justify-content:center;margin:6px 0 24px}
+  .herohead-img{width:100%;max-width:360px;height:auto;display:block}
+  .video-embed-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 14px 30px rgba(30,25,70,.18)}
+  .video-embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+  .face{width:84px;height:84px;border-radius:50%;object-fit:cover;padding:4px;background:linear-gradient(135deg,#9b8cff,#56c6e8);box-shadow:0 6px 16px rgba(60,40,120,.18)}
+  .logo-c{height:46px;width:auto}
+  .arrow{color:#8B5CF6;font-size:16px;opacity:.9}
+  .sub{font-size:19px;line-height:1.4;color:#4b5563;text-align:center;font-family:"Work Sans",sans-serif;font-weight:400;margin-bottom:22px}
+
+  .label{font-size:15px;color:#4b5563;margin:0 0 7px 2px;font-weight:600}
+  .field{width:100%;background:#fff;border:1.5px solid #e4e6ec;border-radius:16px;padding:19px 20px;font-size:17px;color:var(--ink);font-family:"Work Sans",sans-serif;font-weight:600;box-shadow:0 2px 10px rgba(30,25,70,.04)}
+  .field::placeholder{color:#9aa1ad;font-weight:700}
+  .field:focus{outline:none;border-color:#8B5CF6;box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+  .err{color:#e5484d;font-size:14px;margin:8px 2px 0;display:none}
+
+  .testi{background:var(--green-bg);border:1.5px solid var(--green-br);border-radius:18px;padding:5px;margin-top:20px;overflow:hidden}
+  .testi-track{display:flex;transition:transform .5s ease}
+  .testi-slide{flex:0 0 100%;min-width:0}
+  .testi .inner{background:#fff;border-radius:14px;padding:18px 18px 16px;min-height:168px}
+  .testi .top{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .testi-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 2px}
+  .testi-dots i{width:6px;height:6px;border-radius:50%;background:#cfd4dd;display:block;transition:background .25s,width .25s}
+  .testi-dots i.on{background:#7C3AED;width:16px;border-radius:99px}
+  .badge{display:inline-flex;align-items:center;gap:6px;color:var(--green-tx);font-weight:800;font-size:13px;letter-spacing:.4px;font-family:"Work Sans",sans-serif}
+  .badge svg{width:16px;height:16px}
+  .stars{color:var(--gold);font-size:15px;letter-spacing:2px}
+  .quote{font-size:17px;line-height:1.45;color:#232838;font-family:"Work Sans",sans-serif;font-weight:500}
+  .who{display:flex;align-items:center;gap:12px;margin-top:14px}
+  .who img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+  .who .n{font-weight:800;font-size:15px;color:var(--ink)}
+  .who .r{font-size:13px;color:var(--muted)}
+
+  .spacer{flex:1}
+  .cta{width:100%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--purple1),var(--purple2));color:#fff;font-family:"Work Sans",sans-serif;font-weight:800;font-size:19px;padding:20px;border-radius:20px;box-shadow:0 14px 30px rgba(124,58,237,.34);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;margin-bottom:140px;transition:transform .12s}
+  .cta:active{transform:translateY(1px)}
+
+  .kicker{text-align:center;font-family:"Work Sans",sans-serif;font-weight:700;font-size:13px;letter-spacing:1.6px;color:#4b5563;margin:4px 0 14px}
+  .kicker-logo{display:block;height:28px;margin:2px auto 16px}
+  .bar{height:7px;background:#e3e5ea;border-radius:99px;overflow:hidden;margin-bottom:26px}
+  .bar>i{display:block;height:100%;background:linear-gradient(90deg,#6d5efc,#8B5CF6);border-radius:99px;transition:width .5s ease}
+  .q{font-family:"Work Sans",sans-serif;font-weight:800;font-size:27px;line-height:1.2;color:var(--ink);margin-bottom:10px}
+  .q .hl{color:#7C3AED}
+  .qsub{font-size:16px;line-height:1.45;color:#8b92a0;margin-bottom:22px}
+  .opts{display:flex;flex-direction:column;gap:14px}
+  .opt{width:100%;text-align:left;background:#fff;border:1.5px solid #eceef2;border-radius:18px;padding:22px 22px;font-family:"Work Sans",sans-serif;font-weight:700;font-size:18px;color:#272c3a;cursor:pointer;box-shadow:0 6px 16px rgba(30,25,70,.05);transition:transform .12s,border-color .12s,box-shadow .12s}
+  .opt:hover{border-color:#cdbcff}
+  .opt:active,.opt.sel{transform:scale(.99);border-color:#8B5CF6;box-shadow:0 0 0 3px rgba(139,92,246,.16)}
+
+  .center{align-items:center;justify-content:center;text-align:center}
+  .logo-top{height:30px;margin:0 auto 10px;display:block}
+  .evalwrap{width:100%;margin-top:6vh}
+  .evalwrap h2{font-size:28px;font-weight:800;margin-bottom:10px}
+  .evalwrap p{color:var(--muted);font-size:16px;margin-bottom:34px}
+  .evalcard{background:#fff;border-radius:18px;padding:24px 22px;box-shadow:0 10px 26px rgba(30,25,70,.08);text-align:left}
+  .evalcard .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .evalcard .row b{font-family:"Work Sans",sans-serif;font-size:17px}
+  .evalcard .pct{color:#7C3AED;font-weight:800;font-family:"Work Sans",sans-serif}
+  .evalcard .note{text-align:center;color:#9aa1ad;font-size:14px;margin-top:14px}
+
+  .bk-top{text-align:center;border-bottom:1px solid #e9ebf0;padding-bottom:8px;margin-bottom:4px}
+  .bk-top .logo-c{height:26px}
+  .bk-h1{font-family:"Sora","Work Sans",sans-serif;font-weight:800;font-size:clamp(16px,6.5vw,40px);line-height:1.05;text-align:center;margin-bottom:4px;white-space:nowrap}
+  .bk-sub{font-family:"Work Sans",sans-serif;font-weight:700;font-size:clamp(12px,4.5vw,20px);text-align:center;color:#232838;margin-bottom:10px;white-space:nowrap}
+  .focus{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:16px;padding:18px;box-shadow:0 6px 16px rgba(30,25,70,.06);margin-bottom:8px}
+  .focus .ic{flex:none;width:44px;height:44px;border-radius:12px;background:#ede9ff;display:flex;align-items:center;justify-content:center}
+  .focus .ic svg{width:22px;height:22px;color:#7C3AED}
+  .focus p{font-size:16px;line-height:1.45;color:#2b3040}
+  .spw{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;background:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 6px 16px rgba(30,25,70,.06);margin-bottom:8px;flex-wrap:nowrap}
+  .spw-left{display:flex;align-items:flex-start;gap:10px;min-width:0;flex:1 1 auto}
+  .spw-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;margin-top:2px}
+  .spw-text{min-width:0;padding-top:2px}
+  .spw-label{font-size:12px;color:#8b92a0;font-family:"Work Sans",sans-serif;font-weight:600;line-height:1.3}
+  .spw-name{font-size:15px;font-weight:800;color:var(--ink);font-family:"Work Sans",sans-serif;line-height:1.3}
+  .spw-role{font-weight:600;color:#6b7280}
+  .spw-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-bg);color:var(--green-tx);font-weight:700;font-size:11px;padding:5px 9px;border-radius:99px;font-family:"Work Sans",sans-serif;white-space:nowrap;flex:none;margin-top:2px}
+  .spw-dot{width:7px;height:7px;border-radius:50%;background:var(--green-tx);display:inline-block}
+  @media (max-width:420px){.spw-label{display:none}.spw-badge{font-size:10px;padding:4px 7px}}
+  .host{display:flex;align-items:center;gap:12px;margin:20px 0 6px}
+  .host img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+  .host .n{font-size:18px}
+  .mtitle{font-family:"Work Sans",sans-serif;font-weight:700;font-size:26px;margin:14px 0 14px}
+  .mrow{display:flex;align-items:center;gap:12px;color:#3a4050;font-size:16px;margin-bottom:10px}
+  .mrow svg{width:22px;height:22px;flex:none;color:#4b5563}
+  .calwrap{margin-top:8px;border-radius:16px;overflow:hidden;border:1px solid #e6e8ee;background:#fff;min-height:1800px}
+  .calwrap iframe{width:100%;height:1800px;border:0;display:block}
+
+  /* animated loading line under the speaking-with card, until the calendar iframe loads (same as book.html) */
+  .bk-loader{max-width:560px;margin:14px auto 2px;text-align:center}
+  .bk-loader>i{display:block;height:3px;border-radius:99px;background:#e6e8ee;overflow:hidden;position:relative}
+  .bk-loader>i::before{content:"";position:absolute;top:0;left:-40%;height:100%;width:40%;border-radius:99px;background:linear-gradient(90deg,var(--purple1,#8B5CF6),var(--purple2,#7C3AED));animation:bkload 1.05s ease-in-out infinite}
+  @keyframes bkload{0%{left:-40%}100%{left:100%}}
+  .bk-loadtxt{display:inline-block;margin-top:7px;font-size:12.5px;color:var(--muted);font-weight:600}
+  .bk-loader.done{display:none}
+
+  .seg-head{font-family:"Work Sans",sans-serif;font-weight:800;font-size:27px;line-height:1.2;text-align:center;margin:4px 0 16px}
+  .seg-head .g{background:linear-gradient(135deg,var(--purple1),var(--purple2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* ---- desktop: floating card instead of an edge-to-edge mobile sheet ---- */
+  @media (min-width:860px){
+    body{padding:56px 20px;align-items:flex-start}
+    .app{max-width:640px;min-height:auto;align-self:flex-start;background:#fff;border-radius:28px;box-shadow:0 24px 64px rgba(30,25,70,.10);padding:48px 56px 56px;margin:0 auto}
+    .q{font-size:32px}
+    .qsub{font-size:17px}
+    .opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .opt{font-size:17px;padding:20px 22px}
+    .evalwrap{margin-top:3vh}
+    .cta{margin-bottom:0}
+    .calwrap{min-height:1250px}
+    .calwrap iframe{height:1250px}
+    /* book screen: wider card so the Google Calendar widget gets the ~888px of width book.html's
+       own calendar embed uses at this same breakpoint (900px wrap, 6px padding) -- avoids the
+       widget falling back to its own narrow layout and showing an internal horizontal scrollbar */
+    .app:has(#s-book.active){max-width:1000px}
+  }
+</style>
+<!-- LUCID-CLICK-TRACKER:START v2 (2026-11-18) - logs EVERY button + CTA click to PostHog, GA4 and Meta.
+     Event names: GA4 + PostHog = Button_Link_Click, Meta = ButtonClick (custom event, same as the GTM tag on www).
+     CTA event (every click on a call-to-action, sent to all 3 on both sites): GA4 + PostHog = cta_click, Meta = CTAClick (this pixel's Meta event-validation list silently drops unapproved custom names; CTAClick was approved in Events Manager 2026-11-18, ButtonClick too).
+     GA4 convention = snake_case custom event; Meta custom events = PascalCase (no standard CTA event exists in either);
+     cta_click is also the pre-existing PostHog name on www (script.js), so reports keep working.
+     Params: cta_text, cta_id (?cta= value or element id), cta_classes, cta_url, cta_section, cta_position, cta_element, page_path.
+     Capture phase on document, so it still fires when page code calls stopPropagation()/preventDefault().
+     Config: GA_META_MODE = 'always' (get.lucid.now: GTM click tags do not see clicks there) or 'until-gtm'
+     (www.lucid.now: GTM's own tags send GA4+Meta once the container has loaded; this only covers clicks before that). -->
+<script>
+(function(){
+  if(window.__lucidClickTracker)return; window.__lucidClickTracker=1;
+  var GA_META_MODE='always', GA4_ID='G-C7R39B4QSW';
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){window.dataLayer.push(arguments);}
+  function gtmLoaded(){return !!(window.google_tag_manager&&window.google_tag_manager['GTM-5WW4FVXM']);}
+  // send immediately via beacon: PostHog's default batch queue is not flushed when the click navigates the page away
+  var PH_OPTS={send_instantly:true,transport:'sendBeacon'};
+  var SEL='a[href],button,[role=button],[role=tab],[role=menuitem],[role=link],input[type=submit],input[type=button],summary,[onclick]';
+  function clean(s){return s?String(s).replace(/[\s ]+/g,' ').replace(/^\s+|\s+$/g,''):'';}
+  function cut(s,n){return s.length>n?s.slice(0,n-3)+'...':s;}
+  function resolve(t){
+    if(!t||t.nodeType!==1)t=t&&t.parentElement; if(!t)return null;
+    var f=t.closest?t.closest(SEL):null; return f;
+  }
+  function textOf(el){
+    var t=clean(el.tagName==='INPUT'?el.value:(el.innerText||el.textContent));
+    if(!t)t=clean(el.getAttribute('aria-label')||el.getAttribute('title')||el.getAttribute('alt'));
+    if(!t){var im=el.querySelector&&el.querySelector('img[alt],svg title,[aria-label]');if(im)t=clean(im.getAttribute('alt')||im.getAttribute('aria-label')||im.textContent);}
+    if(!t&&el.id)t='#'+el.id;
+    return cut(t||'unknown_element',100);
+  }
+  function ctaId(el){
+    var h=el.getAttribute('href')||'',m=h.match(/[?&]cta=([^&#]+)/);
+    if(m){try{return decodeURIComponent(m[1]);}catch(e){return m[1];}}
+    return el.id?String(el.id):'';
+  }
+  function sectionOf(el){
+    var n=el.parentElement,region='';
+    while(n&&n.nodeType===1&&n.tagName!=='BODY'){
+      var t=n.tagName.toLowerCase();
+      if(/^(header|footer|nav|section|aside|main|form|dialog)$/.test(t)||n.id){
+        region=t+(n.id?'#'+n.id:(n.getAttribute('class')?'.'+clean(n.getAttribute('class')).split(' ')[0]:''));
+        var h=n.querySelector&&n.querySelector('h1,h2,h3');
+        if(h){var ht=clean(h.innerText||h.textContent);if(ht)region+=' > '+ht;}
+        break;
+      }
+      n=n.parentElement;
+    }
+    return cut(region||'page',100);
+  }
+  function positionOf(el,text){
+    try{
+      var all=document.querySelectorAll(el.tagName),same=0,idx=0;
+      for(var i=0;i<all.length;i++){var tt=clean(all[i].innerText||all[i].value||all[i].textContent);if(tt===clean(el.innerText||el.value||el.textContent)){same++;if(all[i]===el)idx=same;}}
+      return idx?idx+'/'+same:'';
+    }catch(e){return '';}
+  }
+  function urlOf(el){
+    if(el.tagName==='A')return String(el.href||el.getAttribute('href')||'');
+    var f=el.form||(el.closest?el.closest('form'):null);
+    return f?String(f.action||''):'';
+  }
+  function elType(el){return el.tagName.toLowerCase()+(el.getAttribute('role')?'['+el.getAttribute('role')+']':'');}
+  var CTA_TEXT=/^[^a-z0-9]*(get started|book a|book now|talk to|get a quote|get my free|free estimate|schedule|request a demo|book a demo|sign up|start free|contact us|log in)/i;
+  function isCta(el,p){
+    var h=el.getAttribute('href')||'', c=' '+(el.getAttribute('class')||'')+' ';
+    if(el.__ctaData)return true;
+    if(/[?&]cta=/.test(h))return true;
+    if(/\s(btn-primary|btn-cta|sticky-cta|cta|cta-btn)\s/i.test(c))return true;
+    if(/\/book(\b|\/|\?)|contact\.lucid\.now|calendly|\/zc\/|get-started|signup|sign-up/i.test(h))return true;
+    if(el.tagName!=='SUMMARY'&&CTA_TEXT.test(p.cta_text)&&p.cta_text.length<45)return true;
+    return false;
+  }
+  function whenReady(test,fn){
+    if(test()){fn();return;}
+    var n=0,iv=setInterval(function(){n++;if(test()){clearInterval(iv);fn();}else if(n>100){clearInterval(iv);}},100);
+  }
+  document.addEventListener('click',function(e){
+    try{
+      var el=resolve(e.target); if(!el)return;
+      var p={
+        cta_text:textOf(el),cta_id:ctaId(el),cta_classes:cut(clean(el.getAttribute('class')),100),
+        cta_url:cut(urlOf(el),100),page_path:location.pathname,cta_section:sectionOf(el),
+        cta_position:positionOf(el),cta_element:elType(el)
+      };
+      var cta=isCta(el,p);
+      // PostHog: always
+      whenReady(function(){return window.posthog&&typeof window.posthog.capture==='function';},function(){
+        window.posthog.capture('Button_Link_Click',Object.assign({page_host:location.hostname},p),PH_OPTS);
+      });
+      // GA4 + Meta
+      var direct=(GA_META_MODE==='always')||!gtmLoaded();
+      if(direct){
+        // www already has an early gtag click handler in head-tracking (pre-GTM clicks), so GA4 is only sent here in 'always' mode
+        if(GA_META_MODE==='always')gtag('event','Button_Link_Click',Object.assign({send_to:GA4_ID,transport_type:'beacon'},p));
+        whenReady(function(){return typeof window.fbq==='function';},function(){
+          window.fbq('trackCustom','ButtonClick',{cta_text:p.cta_text,cta_id:p.cta_id,cta_classes:p.cta_classes,cta_url:p.cta_url,page_path:p.page_path,cta_section:p.cta_section,cta_position:p.cta_position,cta_element:p.cta_element});
+        });
+      }
+      // CTA event: GA4 + PostHog cta_click, Meta CTAClicked. SYNCHRONOUS (a deferred call is lost when the click navigates away).
+      // Pages can expose window.__lucidCtaExtraFor(el) -> richer params (www script.js: unique cta_id, cta_action...).
+      var extra=null; try{ extra=window.__lucidCtaExtraFor?window.__lucidCtaExtraFor(el):null; }catch(x){}
+      if(cta||extra){
+        var q=Object.assign({},p,extra||{});
+        // each platform in its own try/catch so one failing SDK never blocks the others
+        try{ whenReady(function(){return typeof window.fbq==='function';},function(){
+          try{window.fbq('trackCustom','CTAClick',q);}catch(x){}
+        }); }catch(x){}
+        try{ gtag('event','cta_click',Object.assign({send_to:GA4_ID,transport_type:'beacon'},q)); }catch(x){}
+        try{ whenReady(function(){return window.posthog&&typeof window.posthog.capture==='function';},function(){
+          try{window.posthog.capture('cta_click',Object.assign({page_host:location.hostname},q),PH_OPTS);}catch(x){}
+        }); }catch(x){}
+      }
+    }catch(err){}
+  },true);
+})();
+</script>
+<!-- LUCID-CLICK-TRACKER:END -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WW4FVXM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script>
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_hiuafry2d2pw');rdt('track','PageVisit');
+
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:5131770,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  }, 3000);
+});
+</script>
+
+<div class="app">
+
+  <!-- ============ SCREEN 0: VIDEO ============ -->
+  <section class="screen active" id="s-video">
+    <div class="herohead">
+      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
+    </div>
+    <div class="video-embed-wrap">
+      <iframe src="https://www.youtube.com/embed/TP5NwXFckZc" title="Lucid - One Solution for All Your Medical Practice Finances" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <div class="spacer"></div>
+    <button class="cta" id="video-continue">Continue <span>&#8594;</span></button>
+  </section>
+
+  <!-- ============ SCREEN 1: EMAIL ============ -->
+  <section class="screen" id="s-welcome">
+    <div id="seg-head-wrap"></div>
+    <div class="herohead">
+      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
+    </div>
+    <label class="label" for="email">Email</label>
+    <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" />
+    <div class="err" id="email-err">Please enter a valid email.</div>
+    <div class="spacer"></div>
+    <button class="cta" id="email-continue">Continue <span>&#8594;</span></button>
+  </section>
+
+  <!-- ============ SCREEN 2: SERVICE ============ -->
+  <section class="screen" id="s-service">
+    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <div class="bar"><i style="width:50%"></i></div>
+    <h2 class="q">What can we <span class="hl">help you with</span>?</h2>
+    <div class="opts" id="opts-service" data-step="service">
+      <button class="opt" data-k="bookkeeping">Bookkeeping</button>
+      <button class="opt" data-k="taxes">Taxes</button>
+      <button class="opt" data-k="rd_credits">R&amp;D Tax Credits</button>
+      <button class="opt" data-k="cfo">CFO Services</button>
+      <button class="opt" data-k="everything">Everything</button>
+      <button class="opt" data-k="not_sure">Something else</button>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 3: SITUATION (one of 6 versions, set by service answer) ============ -->
+  <section class="screen" id="s-situation">
+    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <div class="bar"><i style="width:100%"></i></div>
+    <h2 class="q" id="sit-q"></h2>
+    <p class="qsub" id="sit-sub"></p>
+    <div class="opts" id="opts-situation" data-step="situation"></div>
+  </section>
+
+  <!-- ============ SCREEN 4: PHONE ============ -->
+  <section class="screen" id="s-phone">
+    <div class="herohead">
+      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
+    </div>
+    <label class="label" for="phone">Phone number</label>
+    <input class="field" id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" />
+    <div class="err" id="phone-err">Please enter a valid phone number.</div>
+    <div class="spacer"></div>
+    <button class="cta" id="phone-continue">Finish <span>&#8594;</span></button>
+  </section>
+
+  <!-- ============ SCREEN 5: MEETING-READY (evaluating) ============ -->
+  <section class="screen center" id="s-eval">
+    <img class="logo-top" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <div class="evalwrap">
+      <h2>Creating your profile</h2>
+      <p>Reviewing your practice and evaluating fit.</p>
+      <div class="evalcard">
+        <div class="row"><b>Evaluating fit</b><span class="pct" id="eval-pct">0%</span></div>
+        <div class="bar"><i id="eval-bar" style="width:0%"></i></div>
+        <div class="note">Evaluating your answers&hellip;</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 6: BOOK ============ -->
+  <section class="screen" id="s-book">
+    <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
+    <h1 class="bk-h1">You're a strong fit.</h1>
+    <p class="bk-sub">Pick a time below to secure your spot.</p>
+    <div class="focus">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 15 2 2 4-4"/></svg></span>
+      <p>Your meeting will focus on <strong id="focus-text">building visibility across books, tax, and reporting</strong>.</p>
+    </div>
+    <div class="spw">
+      <div class="spw-left">
+        <img class="spw-avatar" src="https://www.lucid.now/assets/img/erez-profile.jpg" alt="" />
+        <div class="spw-text">
+          <div class="spw-label">You'll be speaking with</div>
+          <div class="spw-name">Erez Lankri <span class="spw-role">&middot; CEO, Lucid</span></div>
+        </div>
+      </div>
+      <span class="spw-badge"><i class="spw-dot"></i>Available this week</span>
+    </div>
+    <div class="bk-loader" id="bk-loader" role="status" aria-label="Loading available times"><i></i><span class="bk-loadtxt">Loading your available times&hellip;</span></div>
+    <div class="calwrap">
+      <iframe id="gcal" title="Select an appointment time" src="about:blank" data-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3UtR10qOKHKVsKGZ0KHoHals6kJncyOATW6yWoPu2_aCXCTZYW1J5UrDKORQ64XkFlpqNxNg3Z?gv=true"></iframe>
+    </div>
+  </section>
+
+</div>
+
+<!-- LUCID-VIDEO-TRACKING:START v1 (2026-11-25) - /video native funnel, forked from /intro's funnel 9001
+     with a new video screen prepended. EXACT PARITY with Zellify funnels (no extra event names):
+     (a) zellify-ingest funnel 9002: page_view, page_completed, cta_clicked, email_captured, calendar_view, booked_heuristic_fired only;
+     (b) Meta: PageView (base pixel), custom PageCompleted, standard CompleteRegistration (email), custom "Booking Intent" (8s dwell on calendar, eventID = ingest event_id);
+     (c) GA4 (send_to G-C7R39B4QSW, beacon): page_completed, complete_registration; (d) PostHog z:page_view/page_completed/answer/email_captured/calendar_view/booked_heuristic_fired + identify.
+     Called from track() below plus a click listener. Honors ?tracking_off and ?test=1. Does NOT touch LUCID-CLICK-TRACKER.
+     Backend registration (2026-11-25): funnel_id 9002 added to WRITE_KEYS scope + KNOWN_FUNNELS in CPA box
+     zellify-ingest/config.py; sheet tabs 9002_raw_events/9002_visitors created (duplicated from 9001, cleared to
+     header-only). CORS already allows get.lucid.now/www.lucid.now (shared origin list). PENDING: zellify-ingest.service
+     needs a restart on the CPA box to pick up the config change -- this box's SSH user has no sudo for systemctl,
+     so events will be rejected (wrong funnel scope) until someone with access runs
+     `sudo systemctl restart zellify-ingest.service` there. -->
+<script>
+(function(){
+  if (window.__intro) return;
+  var FUNNEL_ID='9002', FUNNEL_NAME='video-hero-native', GA4_ID='G-C7R39B4QSW';
+  var ENDPOINT='https://zellify-ingest.49-13-173-94.sslip.io/events', KEY='Hk2qD9M1DpgyTQSKnEkrG9IECCTcqba3SgFrym3RzYs';
+  var SLUG={video:'video',service:'service',situation:'situation',phone:'phone',welcome:'email',evaluating:'meeting-ready',book:'book'};
+  // Forked 2026-11-25 from /intro (funnel 9001) with a new 'video' screen prepended, per Erez:
+  // video(title image + YouTube embed) -> welcome(email) -> service -> situation -> phone -> evaluating -> book.
+  // Note: neither 'video' nor 'phone' are in the shared cross-funnel PAGE_ORDER (same caveat already
+  // flagged for 9001's broken deepest_page ranking -- see docs/marketing-traffic-flow.md section 9).
+  var ORDER=['video','welcome','service','situation','phone','evaluating','book'];
+  var ps=new URLSearchParams(location.search||'');
+  var OFF=ps.has('tracking_off')||ps.get('test')==='1';
+  var I={off:OFF}; window.__intro=I;
+  function now(){return new Date().toISOString();}
+  function uuid(){
+    try{ if(crypto&&crypto.randomUUID) return crypto.randomUUID(); }catch(e){}
+    var b=new Uint8Array(16); try{crypto.getRandomValues(b);}catch(e){for(var i=0;i<16;i++)b[i]=Math.random()*256|0;}
+    b[6]=(b[6]&15)|64; b[8]=(b[8]&63)|128; var h=[].map.call(b,function(x){return ('0'+x.toString(16)).slice(-2);}).join('');
+    return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);
+  }
+  function ls(k,v){try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v);}catch(e){return null;}}
+  function ss(k,v){try{ if(v===undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k,v);}catch(e){return null;}}
+  function cookie(n){try{var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):'';}catch(e){return '';}}
+  // ---- identity: visitor (localStorage), visit (sessionStorage), visit_number, first touch ----
+  var visitorId=ls('lz9001_vid'), firstSeen=ls('lz9001_first_seen'), visitNo=parseInt(ls('lz9001_visits')||'0',10)||0, visitId=ss('lz9001_visit');
+  var returning=!!visitorId;
+  if(!visitorId){visitorId=uuid(); ls('lz9001_vid',visitorId);}
+  if(!firstSeen){firstSeen=now(); ls('lz9001_first_seen',firstSeen);}
+  if(!visitId){visitId=uuid(); ss('lz9001_visit',visitId); visitNo+=1; ls('lz9001_visits',String(visitNo));} else if(!visitNo){visitNo=1;}
+  var params={}; try{ ps.forEach(function(v,k){ if(Object.keys(params).length<40) params[k]=String(v).slice(0,300); }); }catch(e){}
+  var ft=null; try{ft=JSON.parse(ls('lz9001_ft')||'null');}catch(e){}
+  var fbclid=params.fbclid||'';
+  var fbcBuilt=fbclid?('fb.1.'+Date.now()+'.'+fbclid):'';
+  var CLICKIDS=['fbclid','gclid','ttclid','msclkid'], UTMS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id'];
+  if(!ft){
+    ft={at:now(),landing:location.href.slice(0,1000),referrer:(document.referrer||'').slice(0,500),params:params,fbc:cookie('_fbc')||fbcBuilt,fbp:cookie('_fbp')};
+    ls('lz9001_ft',JSON.stringify(ft));
+  }
+  var entryReferrer=(document.referrer||'').slice(0,500);
+  var email='', answersRef=null, curStep='', stepStart=Date.now(), clickN=0;
+
+  function dev(){
+    var n=navigator, s=window.screen||{}, tz='';
+    try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(e){}
+    return {screen:(s.width||0)+'x'+(s.height||0),viewport:(window.innerWidth||0)+'x'+(window.innerHeight||0),timezone:tz,
+      timezone_offset_minutes:-(new Date().getTimezoneOffset()),language:n.language||'',languages:(n.languages||[]).join(','),
+      platform:n.platform||'',cpu_cores:n.hardwareConcurrency||0,device_memory_gb:n.deviceMemory||0,touch_points:n.maxTouchPoints||0,
+      pixel_ratio:window.devicePixelRatio||1,user_agent:n.userAgent||''};
+  }
+  function base(type,extra){
+    var d=dev(), L=location, fb=ft||{}, fp=fb.params||{};
+    var e={schema_version:1,contract_version:2,event_id:uuid(),event_type:type,occurred_at:now(),funnel_id:FUNNEL_ID,website_id:FUNNEL_ID,
+      page_slug:SLUG[curStep]||curStep,url:L.href.slice(0,1000),url_path:L.pathname,url_query:(L.search||'').slice(0,800),
+      visitor_id:visitorId,visit_id:visitId,visit_number:visitNo,is_returning_visitor:returning||visitNo>1,first_seen_at:firstSeen,
+      attribution_schema_version:3,referrer:entryReferrer,entry_page:'email',landing_url:L.href.slice(0,1000),
+      entry_url_path:L.pathname,entry_url_query:(L.search||'').slice(0,800),entry_url_params_json:JSON.stringify(params),
+      url_params:params,fbp:cookie('_fbp')||fb.fbp||'',fbc:cookie('_fbc')||fbcBuilt||fb.fbc||'',cta:params.cta||'',
+      first_touch_landing_url:fb.landing||'',first_touch_entry_referrer:fb.referrer||'',first_touch_entry_page:'email',first_touch_entry_at:fb.at||'',
+      first_touch_entry_url_params_json:JSON.stringify(fp),first_touch_cta:fp.cta||'',
+      site:L.hostname,funnel_variant:FUNNEL_NAME};
+    CLICKIDS.concat(UTMS).forEach(function(k){e[k]=params[k]||'';e['first_touch_'+k]=fp[k]||'';});
+    for(var k in d) e[k]=d[k];
+    if(email){ e.email=email; e.data={email:email}; }
+    var a=answersRef||{};
+    var ans={entry_source:'native'}; ['service','situation','phone'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
+    e.answers=ans;
+    if(extra) for(var x in extra) e[x]=extra[x];
+    if(e.element_tag!==undefined){ e.data=Object.assign(e.data||{},{cta_label:e.cta_label,cta_href:e.cta_href,element_tag:e.element_tag,element_id:e.element_id,element_name:e.element_name,element_type:e.element_type,element_role:e.element_role}); }
+    return e;
+  }
+  // ---- ingest queue: batched, deduped by event_id, flushed on pagehide via sendBeacon ----
+  var Q=[], seen={}, timer=null, DBG=window.__introDebug={posts:[],events:[]};
+  function enqueue(e){
+    if(OFF||seen[e.event_id]) return; seen[e.event_id]=1;
+    try{DBG.events.push(e.event_type);}catch(x){}
+    e._a=0; Q.push(e);
+    if(Q.length>=10) flush(false); else if(!timer) timer=setTimeout(function(){flush(false);},1200);
+  }
+  function clean(b){return b.map(function(e){var c={};for(var k in e) if(k!=='_a') c[k]=e[k];return c;});}
+  function flush(unload){
+    if(timer){clearTimeout(timer);timer=null;}
+    if(!Q.length) return;
+    var batch=Q.splice(0,Q.length), body=JSON.stringify({events:clean(batch)}), url=ENDPOINT+'?key='+encodeURIComponent(KEY);
+    try{
+      if(unload&&navigator.sendBeacon){
+        if(navigator.sendBeacon(url,new Blob([body],{type:'text/plain;charset=UTF-8'}))){DBG.posts.push({beacon:batch.length});return;}
+      }
+      fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:body.length<60000,mode:'cors',credentials:'omit'})
+        .then(function(r){return r.json().then(function(j){
+          var res=(j&&j.results)||[], sum={};
+          res.forEach(function(x){sum[x.status]=(sum[x.status]||0)+1;});
+          DBG.posts.push({n:batch.length,http:r.status,sum:sum});
+        });}).catch(function(){retry(batch);});
+    }catch(e){retry(batch);}
+  }
+  function retry(batch){ batch.forEach(function(e){ if(e._a<2){e._a++; Q.push(e);} }); if(Q.length&&!timer) timer=setTimeout(function(){flush(false);},4000); }
+  // ---- platform helpers ----
+  function ga(name,p){ try{ if(OFF||typeof window.gtag!=='function')return; gtag('event',name,Object.assign({send_to:GA4_ID,transport_type:'beacon'},p||{})); }catch(e){} }
+  function ph(name,p){ try{ if(OFF||!(window.posthog&&posthog.capture))return; posthog.capture(name,Object.assign({funnel:FUNNEL_NAME,funnel_id:FUNNEL_ID,site:location.hostname,visitor_id:visitorId,visit_id:visitId},p||{})); }catch(e){} }
+  function fbStd(evName,p,id){ try{ if(OFF||typeof window.fbq!=='function')return; window.fbq('track',evName,p||{},id?{eventID:id}:undefined); }catch(e){} }
+  function fbCustom(evName,p,id,waitMs){
+    var t0=Date.now();
+    (function go(){ try{
+      if(OFF) return;
+      if(typeof window.fbq==='function'){ window.fbq('trackCustom',evName,p||{},id?{eventID:id}:undefined); return; }
+      if(Date.now()-t0<(waitMs||0)) setTimeout(go,250);
+    }catch(e){} })();
+  }
+  // ---- decorate: extra props on the existing PostHog z:* events ----
+  I.decorate=function(p){ p.site=location.hostname; p.funnel_id=FUNNEL_ID; p.visitor_id=visitorId; p.visit_id=visitId; return p; };
+  // ---- called from track(): maps the existing z:* events onto ingest / GA4 / Meta (Zellify parity) ----
+  var CAMPAIGN=params.campaign_id||params.utm_id||params.utm_campaign||'';
+  I.onTrack=function(name,p){
+    answersRef=p; if(p&&p.email&&!email) email=p.email;
+    var e;
+    if(name==='z:page_view'){
+      var step=p.step, t=Date.now(), dwell=curStep?(t-stepStart):0, from=curStep;
+      if(from){
+        var c=base('page_completed',{page_slug:SLUG[from],from_page_slug:SLUG[from],to_page_slug:SLUG[step],time_on_page_ms:dwell,exit_kind:'navigated'}); enqueue(c);
+        ga('page_completed',{page_slug:SLUG[from],funnel_id:FUNNEL_ID});
+        fbCustom('PageCompleted',{page_location:location.href,page_slug:SLUG[from],funnel_id:FUNNEL_ID,campaign_id:CAMPAIGN,source:'native_intro_funnel'},c.event_id,0);
+        ph('z:page_completed',{step:from,to_step:step,time_on_page_ms:dwell});
+      }
+      curStep=step; stepStart=t;
+      enqueue(base('page_view',{page_slug:SLUG[step],from_page_slug:from?SLUG[from]:'',to_page_slug:SLUG[step],time_on_page_ms:dwell}));
+    } else if(name==='z:email_captured'){
+      email=p.email||email; e=base('email_captured',{email:email,email_capture_event_id:''}); e.email_capture_event_id=e.event_id; enqueue(e);
+      ga('complete_registration',{page_slug:'email',funnel_id:FUNNEL_ID});
+      fbStd('CompleteRegistration',{content_name:FUNNEL_NAME,funnel_id:FUNNEL_ID,page_slug:'email',source:'native_intro_funnel'},e.event_id);
+    } else if(name==='z:calendar_view'){
+      enqueue(base('calendar_view',{page_slug:'book'}));
+    } else if(name==='z:booked_heuristic_fired'){
+      var a=answersRef||{};
+      e=base('booked_heuristic_fired',{page_slug:'book',action:'booking_intent',booked_event_id:'',booked_dwell_ms:8000,booked_pixel_available:typeof window.fbq==='function'});
+      e.booked_event_id=e.event_id; enqueue(e);
+      fbCustom('Booking Intent',{page_location:location.href,page_slug:'book',funnel_id:FUNNEL_ID,campaign_id:CAMPAIGN,booked_dwell_ms:8000,source:'native_intro_funnel',
+        service:a.service||'',situation:a.situation||''},e.event_id,10000);
+    }
+  };
+  // ---- every click, anywhere (capture phase) -> cta_clicked; option picks carry the picked value in cta_label + answers ----
+  var CSEL='button,a,[role=button],[role=tab],input,select,textarea,label,summary,.opt,.cta,iframe,[onclick]';
+  function txt(el){
+    var t=''; try{ t=el.tagName==='INPUT'?(el.type==='email'||el.type==='text'?'':el.value):(el.innerText||el.textContent||''); }catch(e){}
+    t=String(t||'').replace(/\s+/g,' ').trim();
+    if(!t) t=String(el.getAttribute&&(el.getAttribute('aria-label')||el.getAttribute('title')||el.getAttribute('alt'))||'').trim();
+    return t.slice(0,100);
+  }
+  document.addEventListener('click',function(ev){
+    try{
+      if(OFF||clickN>=80) return; clickN++;
+      var t=ev.target; if(!t||t.nodeType!==1) t=t&&t.parentElement; if(!t) return;
+      var el=t.closest?(t.closest(CSEL)||t):t, sec=el.closest?el.closest('.screen'):null;
+      var tag=(el.tagName||'').toLowerCase(), label=txt(el);
+      var ds={}; try{ for(var k in el.dataset) ds[k]=String(el.dataset[k]).slice(0,100); }catch(e){}
+      ds.section=sec?sec.id:''; ds.step=curStep;
+      var x={cta_label:label,cta_href:(el.href||el.getAttribute&&el.getAttribute('href')||'').toString().slice(0,300),element_tag:tag,element_id:el.id||'',
+        element_name:(el.getAttribute&&el.getAttribute('name'))||'',element_type:(el.getAttribute&&el.getAttribute('type'))||(tag==='button'?'button':''),
+        element_role:(el.getAttribute&&el.getAttribute('role'))||'',dataset:ds};
+      var pick=(el.classList&&el.classList.contains('opt'))?el.getAttribute('data-k'):'';
+      var ce=base('cta_clicked',x);
+      if(pick){ ce[curStep]=pick; ce.answers[curStep]=pick; ce.data=Object.assign(ce.data||{},{option:pick,answer:pick,step:curStep}); }
+      if(el.id==='email-continue'){ var ev0=((document.getElementById('email')||{}).value||'').trim(); if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(ev0)){ ce.email=ev0; ce.answers.email=ev0; ce.data=Object.assign(ce.data||{},{email:ev0}); } }
+      enqueue(ce);
+    }catch(e){}
+  },true);
+  // ---- flush queued events when the tab is hidden / page unloads (sendBeacon; no extra event types) ----
+  document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden') flush(true); });
+  window.addEventListener('pagehide',function(){ flush(true); });
+  I.flush=function(){flush(false);};
+})();
+</script>
+<!-- LUCID-INTRO-TRACKING:END -->
+
+<script>
+(function(){
+  var qs = location.search || '';
+  var answers = {};
+
+  var SITUATIONS = {
+    bookkeeping: { title:'How are you handling <span class="hl">bookkeeping</span> today?', sub:"",
+      opts:[['Spreadsheets, mostly me','myself'],['An outside firm handles it','outside_firm'],['An in-house bookkeeper','in_house'],["We're behind, it needs cleanup",'behind']] },
+    taxes: { title:'What\'s your current <span class="hl">tax situation</span>?', sub:"",
+      opts:[['I need this year filed','filing'],['I want proactive planning','planning'],["We're behind on filings",'behind'],['Multiple entities or states','multi_entity']] },
+    rd_credits: { title:'Have you claimed <span class="hl">R&amp;D credits</span> before?', sub:"",
+      opts:[['Never','never'],['Once or twice','once_or_twice'],['Every year','every_year'],['Not sure if we qualify','unsure']] },
+    cfo: { title:'What\'s driving the need for <span class="hl">CFO support</span>?', sub:"",
+      opts:[['Planning an expansion or big purchase','expansion'],['Clearer cash flow visibility','cash_flow'],['Reliable reporting for partners or lenders','reporting'],['The practice is growing fast','growing']] },
+    everything: { title:'What\'s your biggest <span class="hl">financial pain point</span> right now?', sub:"",
+      opts:[['The books are a mess','messy_books'],['Tax surprises','tax_surprises'],['No clear picture of the numbers','no_visibility'],['Growing faster than our systems','growing_fast'],['Something else','something_else']] },
+    not_sure: { title:'What would you most like to <span class="hl">improve</span>?', sub:"",
+      opts:[['Spend less time managing the finances','less_time'],['Feel more confident in the monthly numbers','confident_numbers'],['Avoid tax surprises','tax_surprises'],['Bring everything under one team','one_team']] }
+  };
+
+  var FOCUS = {
+    bookkeeping:{myself:"turning manual books into a reliable monthly close",outside_firm:"reviewing your current firm's output and where the books can improve",in_house:"adding review, controls, and reporting around your in-house bookkeeping",behind:"cleanup first, then reliable monthly bookkeeping"},
+    taxes:{filing:"getting this year filed cleanly and on time",planning:"tax planning opportunities before they become deadline problems",behind:"catching up on filings and reducing deadline risk",multi_entity:"mapping entity and state complexity and reducing filing risk"},
+    rd_credits:{never:"first-time R&D credit eligibility and potential recovery",once_or_twice:"reviewing prior R&D credit claims and improvement areas",every_year:"making the annual R&D credit process cleaner and better supported",unsure:"checking R&D eligibility from the work your practice already does"},
+    cfo:{expansion:"the numbers you need to plan an expansion or major purchase with confidence",cash_flow:"clear cash flow visibility for the practice",reporting:"reporting your partners and lenders can rely on, every month",growing:"finance operations that keep up as the practice grows"},
+    everything:{messy_books:"cleaning up the books before layering tax and CFO support",tax_surprises:"connecting books and tax planning to avoid surprises",no_visibility:"building visibility across books, tax, and reporting",growing_fast:"building a finance system that can support fast growth",something_else:"building visibility across books, tax, and reporting"},
+    not_sure:{less_time:"taking the most time-consuming financial work off your plate first",confident_numbers:"getting the monthly numbers reliable enough to act on",tax_surprises:"connecting books and tax planning so year-end stops surprising you",one_team:"bringing bookkeeping, taxes, and reporting under one coordinated team"}
+  };
+
+  function track(name, props){
+    props = Object.assign({}, answers, props || {});
+    props.funnel = 'email-hero-native';
+    try { if (window.__intro) { if (window.__intro.off) return; window.__intro.decorate(props); } } catch(e){}
+    try { if (window.posthog && posthog.capture) posthog.capture(name, props); } catch(e){}
+    try { window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({event:name}, props)); } catch(e){}
+    try { if (window.__intro) window.__intro.onTrack(name, props); } catch(e){}
+  }
+  function show(id, step){
+    var cur = document.querySelector('.screen.active');
+    if (cur) cur.classList.remove('active');
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+    track('z:page_view', { step: step });
+  }
+  function bindOpts(containerId, picks, onPick){
+    var grp = document.getElementById(containerId);
+    grp.querySelectorAll('.opt').forEach(function(btn){
+      btn.onclick = function(){
+        grp.querySelectorAll('.opt').forEach(function(b){b.classList.remove('sel');});
+        btn.classList.add('sel');
+        onPick(btn.getAttribute('data-k'), btn.textContent.trim());
+      };
+    });
+  }
+
+  bindOpts('opts-service', null, function(k, label){
+    answers.service = k;
+    track('z:answer', { step:'service', value:k, label:label });
+    renderSituation(k);
+    setTimeout(function(){ show('s-situation','situation'); }, 180);
+  });
+
+  function renderSituation(serviceKey){
+    var def = SITUATIONS[serviceKey];
+    document.getElementById('sit-q').innerHTML = def.title;
+    var subEl = document.getElementById('sit-sub');
+    subEl.textContent = def.sub; subEl.style.display = def.sub ? '' : 'none';
+    var wrap = document.getElementById('opts-situation');
+    wrap.innerHTML = def.opts.map(function(o){ return '<button class="opt" data-k="'+o[1]+'">'+o[0]+'</button>'; }).join('');
+    bindOpts('opts-situation', null, function(k, label){
+      answers.situation = k;
+      track('z:answer', { step:'situation', value:k, label:label });
+      setTimeout(function(){ show('s-phone','phone'); }, 180);
+    });
+  }
+
+  (function(){
+    var seg = new URLSearchParams(qs).get('segment');
+    if (seg) {
+      var rows = seg.split('|').slice(0,2).map(function(s,i){
+        var t = s.trim(); return i===1 ? '<span class="g">'+t+'</span>' : t;
+      });
+      document.getElementById('seg-head-wrap').innerHTML = '<h1 class="seg-head">'+rows.join('<br>')+'</h1>';
+    }
+  })();
+  document.querySelectorAll('.testi').forEach(function(testi){
+    var track = testi.querySelector('.testi-track'), dotsWrap = testi.querySelector('.testi-dots');
+    if (!track || !dotsWrap || track.dataset.sliderInit) return;
+    track.dataset.sliderInit = '1';
+    var slides = track.querySelectorAll('.testi-slide'), n = slides.length, i = 0;
+    if (n < 2) return;
+    for (var d = 0; d < n; d++) { var dot = document.createElement('i'); if (d===0) dot.className='on'; dotsWrap.appendChild(dot); }
+    var dots = dotsWrap.querySelectorAll('i');
+    function go(idx){
+      i = idx;
+      track.style.transform = 'translateX(-' + (i*100) + '%)';
+      dots.forEach(function(dd,k){ dd.classList.toggle('on', k===i); });
+    }
+    setInterval(function(){ go((i+1) % n); }, 4500);
+  });
+  document.getElementById('video-continue').addEventListener('click', function(){ show('s-welcome','welcome'); });
+  var emailInput = document.getElementById('email');
+  var emailErr = document.getElementById('email-err');
+  try { var preEmail = new URLSearchParams(qs).get('email'); if (preEmail) emailInput.value = preEmail; } catch(e){}
+  function submitEmail(){
+    var v = (emailInput.value||'').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { emailErr.style.display='block'; emailInput.focus(); return; }
+    emailErr.style.display='none';
+    answers.email = v;
+    try { if (window.posthog) posthog.identify(v, { email: v }); } catch(e){}
+    track('z:email_captured', { email: v });
+    show('s-service','service');
+  }
+  document.getElementById('email-continue').addEventListener('click', submitEmail);
+  emailInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitEmail(); });
+
+  var phoneInput = document.getElementById('phone');
+  var phoneErr = document.getElementById('phone-err');
+  function submitPhone(){
+    var v = (phoneInput.value||'').trim();
+    if ((v.replace(/\D/g,'')).length < 7) { phoneErr.style.display='block'; phoneInput.focus(); return; }
+    phoneErr.style.display='none';
+    answers.phone = v;
+    track('z:answer', { step:'phone', value:v, label:v });
+    runEval();
+  }
+  document.getElementById('phone-continue').addEventListener('click', submitPhone);
+  phoneInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitPhone(); });
+
+  function runEval(){
+    show('s-eval','evaluating');
+    try {
+      var f = document.getElementById('gcal');
+      var src = f.getAttribute('data-src');
+      if (qs) src += (src.indexOf('?')>-1?'&':'?') + qs.replace(/^\?/,'');
+      var ld = document.getElementById('bk-loader');
+      function hideLoader(){ if (ld) ld.classList.add('done'); }
+      f.addEventListener('load', hideLoader);
+      setTimeout(hideLoader, 12000);
+      f.src = src;
+    } catch(e){}
+    var bar = document.getElementById('eval-bar'), pct = document.getElementById('eval-pct');
+    var p = 0;
+    var t = setInterval(function(){
+      p += Math.max(2, Math.round((100-p)*0.12));
+      if (p >= 100) { p = 100; clearInterval(t); setTimeout(gotoBook, 1500); }
+      bar.style.width = p+'%'; pct.textContent = p+'%';
+    }, 90);
+  }
+
+  function gotoBook(){
+    var focus = (FOCUS[answers.service] && FOCUS[answers.service][answers.situation]) || 'building visibility across books, tax, and reporting';
+    document.getElementById('focus-text').textContent = focus;
+    show('s-book','book');
+    track('z:calendar_view', {});
+    setTimeout(function(){ track('z:booked_heuristic_fired', {}); }, 8000);
+  }
+
+  show('s-video','video');
+})();
+</script>
+</body>
+</html>
