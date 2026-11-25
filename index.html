@@ -162,9 +162,11 @@ gtag('config', 'AW-17424075651');
 	<script>
 window.addEventListener('load', function () {
   setTimeout(function () {
-    // Crisp
-    window.$crisp=[];window.CRISP_WEBSITE_ID="38f82b20-8859-4291-a129-60259a446c68";
-    (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+    // Crisp (desktop only -- mobile dropped the widget per Erez, 2026-11-25)
+    if (window.innerWidth > 900) {
+      window.$crisp=[];window.CRISP_WEBSITE_ID="38f82b20-8859-4291-a129-60259a446c68";
+      (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+    }
 
     // Reddit Pixel
     !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_hiuafry2d2pw');rdt('track','PageVisit');
@@ -1083,6 +1085,9 @@ position: absolute;
 }
 
 @media (max-width: 768px) {
+    #header-60-169861 .page-component__wrapper {
+        padding-top: 30px !important;
+    }
     #header-60-169861 .heading {
         font-size: 2.5em;
         line-height: 1.2;
@@ -1090,8 +1095,8 @@ position: absolute;
     }
     #header-60-169861 .form__inputs{
     margin-left: 0px;
-    
-}  
+
+}
 }
 
 @media (max-width: 500px) {
@@ -2450,7 +2455,7 @@ $('.slider__box').slick({
 
 
 
-		<div class="logo-reel" aria-label="Practices across every specialty"><div class="logo-track"><img src="/lucid-reel/reel-thyroid.webp" alt="Modern Thyroid Clinic" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/reel-sigma.webp" alt="Sigma Orthopedics" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/reel-ascend.webp" alt="Ascend Behavioral Health" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/reel-amarillo.webp" alt="AmarilloMD" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/nanoom.svg" alt="Nanoom Medical Group" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/reel-t1d.webp" alt="T1D Screening Queen" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/reel-restorative.svg" alt="Restorative Resilience Counseling" height="30" loading="lazy" decoding="async" /><img src="/lucid-reel/reel-thyroid.webp" alt="Modern Thyroid Clinic" height="30" loading="lazy" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-sigma.webp" alt="Sigma Orthopedics" height="30" loading="lazy" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-ascend.webp" alt="Ascend Behavioral Health" height="30" loading="lazy" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-amarillo.webp" alt="AmarilloMD" height="30" loading="lazy" decoding="async" aria-hidden="true" /><img src="/lucid-reel/nanoom.svg" alt="Nanoom Medical Group" height="30" loading="lazy" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-t1d.webp" alt="T1D Screening Queen" height="30" loading="lazy" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-restorative.svg" alt="Restorative Resilience Counseling" height="30" loading="lazy" decoding="async" aria-hidden="true" /></div></div>
+		<div class="logo-reel" aria-label="Practices across every specialty"><div class="logo-track"><img src="/lucid-reel/reel-thyroid.webp" alt="Modern Thyroid Clinic" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/reel-sigma.webp" alt="Sigma Orthopedics" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/reel-ascend.webp" alt="Ascend Behavioral Health" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/reel-amarillo.webp" alt="AmarilloMD" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/nanoom.svg" alt="Nanoom Medical Group" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/reel-t1d.webp" alt="T1D Screening Queen" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/reel-restorative.svg" alt="Restorative Resilience Counseling" height="30" loading="eager" decoding="async" /><img src="/lucid-reel/reel-thyroid.webp" alt="Modern Thyroid Clinic" height="30" loading="eager" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-sigma.webp" alt="Sigma Orthopedics" height="30" loading="eager" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-ascend.webp" alt="Ascend Behavioral Health" height="30" loading="eager" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-amarillo.webp" alt="AmarilloMD" height="30" loading="eager" decoding="async" aria-hidden="true" /><img src="/lucid-reel/nanoom.svg" alt="Nanoom Medical Group" height="30" loading="eager" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-t1d.webp" alt="T1D Screening Queen" height="30" loading="eager" decoding="async" aria-hidden="true" /><img src="/lucid-reel/reel-restorative.svg" alt="Restorative Resilience Counseling" height="30" loading="eager" decoding="async" aria-hidden="true" /></div></div>
 	</section>
 
       
@@ -6216,9 +6221,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function initialize() {
-    setupCrispClickTracking();
+    if (window.innerWidth > 900) setupCrispClickTracking();
   }
-  
+
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize);
