@@ -823,6 +823,14 @@ window.addEventListener('load', function () {
       var extraCenter = (vw - targetW) / 2;
       wrap.style.width = targetW + 'px';
       wrap.style.marginLeft = (-(appLeft) - padL + extraCenter) + 'px';
+      // The CSS padding-top:56.25% aspect-ratio hack resolves against the WRAPPER'S
+      // CONTAINING BLOCK width (.screen's content width), not the width we just set on the
+      // wrapper itself -- once the wrapper's own width diverges from its parent's (exactly
+      // what full-bleed requires), that percentage math goes stale and the box renders too
+      // short for its width, i.e. the video reads as stretched wider than 16:9. Override with
+      // an explicit pixel height computed from the real width instead.
+      wrap.style.paddingTop = '0';
+      wrap.style.height = Math.round(targetW * 9 / 16) + 'px';
     }
     fit();
     window.addEventListener('resize', fit);
