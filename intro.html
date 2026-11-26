@@ -89,7 +89,8 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   :root{
     --bg:#f3f4f6; --card:#ffffff; --ink:#171a2e; --muted:#6b7280;
     --purple1:#8B5CF6; --purple2:#7C3AED; --ring:#e6e8ee;
-    --green-bg:#eaf6ef; --green-br:#cfe9d8; --green-tx:#1f9d57; --gold:#f5a623;
+    --green-bg:#eaf6ef; --green-br:#cfe9d8; --green-tx:#0f6e34; --gold:#a66a00;
+    --amber:#7a4e0a; --amber-bg:#fdf3e2; --red:#a8331f; --red-bg:#fbe9e6;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{background:var(--bg);color:var(--ink);font-family:"Lato",system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
@@ -212,6 +213,30 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
        widget falling back to its own narrow layout and showing an internal horizontal scrollbar */
     .app:has(#s-book.active){max-width:1000px}
   }
+
+  /* ---- new /intro front-of-funnel: quiz + score reveal (added 2026-11-26) ---- */
+  .trust-top{display:flex;align-items:center;justify-content:center;gap:7px;margin:0 0 14px}
+  .trust-top .stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+  .trust-top .ttxt{font-family:"Work Sans",sans-serif;font-size:11.5px;font-weight:700;color:var(--muted)}
+  .eyebrow{text-align:center;font-family:"Work Sans",sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2);margin-bottom:8px}
+  .step-label{font-family:"Work Sans",sans-serif;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;margin:-16px 0 20px;min-height:15px}
+  .score-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:4px}
+  .gauge{position:relative;width:188px;height:188px;margin:6px auto 6px}
+  .gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .gauge .track{fill:none;stroke:var(--ring);stroke-width:14}
+  .gauge .fill{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke-dasharray 1.1s cubic-bezier(.16,1,.3,1),stroke .4s}
+  .gauge .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Work Sans",sans-serif}
+  .gauge .num b{font-size:46px;font-weight:800;line-height:1;color:var(--ink)}
+  .gauge .num span{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:4px}
+  .verdict-pill{display:inline-flex;align-items:center;gap:6px;font-family:"Work Sans",sans-serif;font-weight:800;font-size:13px;padding:7px 14px;border-radius:999px;margin:14px 0 4px}
+  .score-title{font-family:"Work Sans",sans-serif;font-weight:800;font-size:19px;margin:4px 0 20px;line-height:1.3}
+  .drag-list{width:100%;text-align:left;display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+  .drag-item{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1.5px solid #eceef2;border-radius:14px;padding:13px 14px;font-family:"Work Sans",sans-serif;box-shadow:0 4px 12px rgba(30,25,70,.04)}
+  .drag-item .ic{flex:none;width:22px;height:22px;border-radius:7px;background:var(--red-bg);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+  .drag-item .tx{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.4}
+  .drag-item .tx small{display:block;font-weight:500;color:var(--muted);margin-top:3px;font-size:13px;line-height:1.4}
+  .blur-note{display:flex;align-items:center;gap:8px;font-family:"Work Sans",sans-serif;font-size:13.5px;color:var(--muted);font-weight:600;margin:2px 0 18px;line-height:1.4}
+  @media (min-width:860px){ .gauge{width:210px;height:210px} .gauge .num b{font-size:50px} }
 </style>
 <!-- LUCID-CLICK-TRACKER:START v2 (2026-11-18) - logs EVERY button + CTA click to PostHog, GA4 and Meta.
      Event names: GA4 + PostHog = Button_Link_Click, Meta = ButtonClick (custom event, same as the GTM tag on www).
@@ -358,44 +383,82 @@ window.addEventListener('load', function () {
 
 <div class="app">
 
-  <!-- ============ SCREEN 1: EMAIL ============ -->
-  <section class="screen active" id="s-welcome">
-    <div id="seg-head-wrap"></div>
-    <div class="herohead">
-      <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
+  <!-- ============ SHARED HEADER (hidden once s-eval/s-book take over) ============ -->
+  <div id="quizHeader">
+    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <div class="eyebrow">GET YOUR CLARITY SCORE &middot; 60 SECONDS</div>
+    <div class="trust-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="ttxt">Trusted by 100+ medical practices</span></div>
+    <div class="bar"><i id="quiz-bar" style="width:14%"></i></div>
+    <div class="step-label" id="quiz-step-label">Question 1 of 3 &middot; then your score</div>
+  </div>
+
+  <!-- ============ SCREEN 1: Q1 ============ -->
+  <section class="screen active" id="s-q1">
+    <h2 class="q">What's <span class="hl">weighing on you</span> most?</h2>
+    <p class="qsub">One tap, no typing.</p>
+    <div class="opts" id="opts-q1" data-step="q1">
+      <button class="opt" data-k="late" data-pts="-18">Our reports always come in late</button>
+      <button class="opt" data-k="inconsistent" data-pts="-26">Numbers never quite add up</button>
+      <button class="opt" data-k="profit" data-pts="-34">I don't actually know what's profitable</button>
+      <button class="opt" data-k="scattered" data-pts="-22">Everything's scattered across spreadsheets</button>
+      <button class="opt" data-k="other" data-pts="-22">Something else</button>
     </div>
+  </section>
+
+  <!-- ============ SCREEN 2: Q2 ============ -->
+  <section class="screen" id="s-q2">
+    <h2 class="q">How many <span class="hl">locations</span> are you running?</h2>
+    <p class="qsub">This changes how fast the fog builds up.</p>
+    <div class="opts" id="opts-q2" data-step="q2">
+      <button class="opt" data-k="loc1" data-pts="14">Just 1</button>
+      <button class="opt" data-k="loc23" data-pts="0">2&ndash;3</button>
+      <button class="opt" data-k="loc4" data-pts="-12">4 or more</button>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 3: Q3 ============ -->
+  <section class="screen" id="s-q3">
+    <h2 class="q">How current are your <span class="hl">books, right now?</span></h2>
+    <p class="qsub">Be honest &mdash; this one matters most.</p>
+    <div class="opts" id="opts-q3" data-step="q3">
+      <button class="opt" data-k="current" data-pts="20">Closed and reconciled within 10 days</button>
+      <button class="opt" data-k="behind1" data-pts="-14">1&ndash;2 months behind</button>
+      <button class="opt" data-k="behind2" data-pts="-30">2+ months behind, or honestly not sure</button>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 4: SCORE REVEAL ============ -->
+  <section class="screen" id="s-score">
+    <div class="score-wrap">
+      <div class="gauge">
+        <svg viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="50"></circle>
+          <circle class="fill" id="gaugeFill" cx="60" cy="60" r="50" stroke-dasharray="0 314"></circle>
+        </svg>
+        <div class="num"><b id="scoreNum">0</b><span>out of 100</span></div>
+      </div>
+      <div class="verdict-pill" id="verdictPill">&nbsp;</div>
+      <div class="score-title" id="scoreTitle">&nbsp;</div>
+      <div class="drag-list" id="dragList"></div>
+      <div class="blur-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Your full breakdown + 3-step fix plan is next &mdash; enter your email to unlock it</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="cta" id="toEmailBtn">Unlock my full breakdown <span>&#8594;</span></button>
+  </section>
+
+  <!-- ============ SCREEN 5: EMAIL ============ -->
+  <section class="screen" id="s-email">
+    <h2 class="q">One last step &mdash; <span class="hl">where should we send it?</span></h2>
+    <p class="qsub">Your score, what's driving it, and a 3-step plan to fix it.</p>
     <label class="label" for="email">Email</label>
-    <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" />
+    <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@practice.com" />
     <div class="err" id="email-err">Please enter a valid email.</div>
     <div class="spacer"></div>
-    <button class="cta" id="email-continue">Continue <span>&#8594;</span></button>
+    <button class="cta" id="email-continue">Send my breakdown <span>&#8594;</span></button>
+    <div class="foot"><i></i>Takes 10 seconds &middot; no spam</div>
   </section>
 
-  <!-- ============ SCREEN 2: SERVICE ============ -->
-  <section class="screen" id="s-service">
-    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:50%"></i></div>
-    <h2 class="q">What can we <span class="hl">help you with</span>?</h2>
-    <div class="opts" id="opts-service" data-step="service">
-      <button class="opt" data-k="bookkeeping">Bookkeeping</button>
-      <button class="opt" data-k="taxes">Taxes</button>
-      <button class="opt" data-k="rd_credits">R&amp;D Tax Credits</button>
-      <button class="opt" data-k="cfo">CFO Services</button>
-      <button class="opt" data-k="everything">Everything</button>
-      <button class="opt" data-k="not_sure">Something else</button>
-    </div>
-  </section>
-
-  <!-- ============ SCREEN 3: SITUATION (one of 6 versions, set by service answer) ============ -->
-  <section class="screen" id="s-situation">
-    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="bar"><i style="width:100%"></i></div>
-    <h2 class="q" id="sit-q"></h2>
-    <p class="qsub" id="sit-sub"></p>
-    <div class="opts" id="opts-situation" data-step="situation"></div>
-  </section>
-
-  <!-- ============ SCREEN 4: PHONE ============ -->
+  <!-- ============ SCREEN 6: PHONE ============ -->
   <section class="screen" id="s-phone">
     <div class="herohead">
       <img class="herohead-img" src="https://www.lucid.now/assets/img/email-hero-header.png" alt="Lucid" />
@@ -407,7 +470,7 @@ window.addEventListener('load', function () {
     <button class="cta" id="phone-continue">Finish <span>&#8594;</span></button>
   </section>
 
-  <!-- ============ SCREEN 5: MEETING-READY (evaluating) ============ -->
+  <!-- ============ SCREEN 7: MEETING-READY (evaluating) ============ -->
   <section class="screen center" id="s-eval">
     <img class="logo-top" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
     <div class="evalwrap">
@@ -458,13 +521,16 @@ window.addEventListener('load', function () {
   if (window.__intro) return;
   var FUNNEL_ID='9001', FUNNEL_NAME='email-hero-native', GA4_ID='G-C7R39B4QSW';
   var ENDPOINT='https://zellify-ingest.49-13-173-94.sslip.io/events', KEY='Hk2qD9M1DpgyTQSKnEkrG9IECCTcqba3SgFrym3RzYs';
-  var SLUG={service:'service',situation:'situation',phone:'phone',welcome:'email',evaluating:'meeting-ready',book:'book'};
-  // Reordered 2026-11-24 (get.lucid.now only): email-first test, entity_type question removed
-  // entirely, phone question added before eval. Real click-through order is now
-  // welcome(email) -> service -> situation -> phone -> evaluating -> book. Note: 'phone' isn't in the
+  var SLUG={q1:'q1',q2:'q2',q3:'q3',score:'score',email:'email',phone:'phone',evaluating:'meeting-ready',book:'book'};
+  // Redesigned 2026-11-26 (get.lucid.now only): Financial Clarity Score quiz replaces the old
+  // email-first/service/situation front-of-funnel. Real click-through order is now
+  // q1 -> q2 -> q3 -> score -> email -> phone -> evaluating -> book (s-eval/s-book, the live Google
+  // Calendar embed + its 8s-dwell booked_heuristic_fired tracking, are UNCHANGED from before).
+  // 'q1'/'q2'/'q3'/'score' are new page_slug values, not new event names (no change needed on the
+  // Zellify/Meta/GA4 side per the parity rule above) but, like 'phone' before them, aren't yet in the
   // shared cross-funnel PAGE_ORDER (same caveat already flagged for this funnel's broken deepest_page
   // ranking -- see docs/marketing-traffic-flow.md section 9).
-  var ORDER=['welcome','service','situation','phone','evaluating','book'];
+  var ORDER=['q1','q2','q3','score','email','phone','evaluating','book'];
   var ps=new URLSearchParams(location.search||'');
   var OFF=ps.has('tracking_off')||ps.get('test')==='1';
   var I={off:OFF}; window.__intro=I;
@@ -509,17 +575,17 @@ window.addEventListener('load', function () {
     var e={schema_version:1,contract_version:2,event_id:uuid(),event_type:type,occurred_at:now(),funnel_id:FUNNEL_ID,website_id:FUNNEL_ID,
       page_slug:SLUG[curStep]||curStep,url:L.href.slice(0,1000),url_path:L.pathname,url_query:(L.search||'').slice(0,800),
       visitor_id:visitorId,visit_id:visitId,visit_number:visitNo,is_returning_visitor:returning||visitNo>1,first_seen_at:firstSeen,
-      attribution_schema_version:3,referrer:entryReferrer,entry_page:'email',landing_url:L.href.slice(0,1000),
+      attribution_schema_version:3,referrer:entryReferrer,entry_page:'q1',landing_url:L.href.slice(0,1000),
       entry_url_path:L.pathname,entry_url_query:(L.search||'').slice(0,800),entry_url_params_json:JSON.stringify(params),
       url_params:params,fbp:cookie('_fbp')||fb.fbp||'',fbc:cookie('_fbc')||fbcBuilt||fb.fbc||'',cta:params.cta||'',
-      first_touch_landing_url:fb.landing||'',first_touch_entry_referrer:fb.referrer||'',first_touch_entry_page:'email',first_touch_entry_at:fb.at||'',
+      first_touch_landing_url:fb.landing||'',first_touch_entry_referrer:fb.referrer||'',first_touch_entry_page:'q1',first_touch_entry_at:fb.at||'',
       first_touch_entry_url_params_json:JSON.stringify(fp),first_touch_cta:fp.cta||'',
       site:L.hostname,funnel_variant:FUNNEL_NAME};
     CLICKIDS.concat(UTMS).forEach(function(k){e[k]=params[k]||'';e['first_touch_'+k]=fp[k]||'';});
     for(var k in d) e[k]=d[k];
     if(email){ e.email=email; e.data={email:email}; }
     var a=answersRef||{};
-    var ans={entry_source:'native'}; ['service','situation','phone'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
+    var ans={entry_source:'native'}; ['q1','q2','q3','phone'].forEach(function(k){ if(a[k]){e[k]=a[k];ans[k]=a[k];} }); if(email) ans.email=email;
     e.answers=ans;
     if(extra) for(var x in extra) e[x]=extra[x];
     if(e.element_tag!==undefined){ e.data=Object.assign(e.data||{},{cta_label:e.cta_label,cta_href:e.cta_href,element_tag:e.element_tag,element_id:e.element_id,element_name:e.element_name,element_type:e.element_type,element_role:e.element_role}); }
@@ -633,28 +699,25 @@ window.addEventListener('load', function () {
   var qs = location.search || '';
   var answers = {};
 
-  var SITUATIONS = {
-    bookkeeping: { title:'How are you handling <span class="hl">bookkeeping</span> today?', sub:"",
-      opts:[['Spreadsheets, mostly me','myself'],['An outside firm handles it','outside_firm'],['An in-house bookkeeper','in_house'],["We're behind, it needs cleanup",'behind']] },
-    taxes: { title:'What\'s your current <span class="hl">tax situation</span>?', sub:"",
-      opts:[['I need this year filed','filing'],['I want proactive planning','planning'],["We're behind on filings",'behind'],['Multiple entities or states','multi_entity']] },
-    rd_credits: { title:'Have you claimed <span class="hl">R&amp;D credits</span> before?', sub:"",
-      opts:[['Never','never'],['Once or twice','once_or_twice'],['Every year','every_year'],['Not sure if we qualify','unsure']] },
-    cfo: { title:'What\'s driving the need for <span class="hl">CFO support</span>?', sub:"",
-      opts:[['Planning an expansion or big purchase','expansion'],['Clearer cash flow visibility','cash_flow'],['Reliable reporting for partners or lenders','reporting'],['The practice is growing fast','growing']] },
-    everything: { title:'What\'s your biggest <span class="hl">financial pain point</span> right now?', sub:"",
-      opts:[['The books are a mess','messy_books'],['Tax surprises','tax_surprises'],['No clear picture of the numbers','no_visibility'],['Growing faster than our systems','growing_fast'],['Something else','something_else']] },
-    not_sure: { title:'What would you most like to <span class="hl">improve</span>?', sub:"",
-      opts:[['Spend less time managing the finances','less_time'],['Feel more confident in the monthly numbers','confident_numbers'],['Avoid tax surprises','tax_surprises'],['Bring everything under one team','one_team']] }
+  // FOCUS: personalizes the "Your meeting will focus on X" line on s-book, keyed by the Q1 pain-point pick.
+  var FOCUS = {
+    late:"closing your books faster so reports are ready when you need them",
+    inconsistent:"getting the monthly numbers to reliably reconcile and make sense",
+    profit:"building real profitability visibility by location and service line",
+    scattered:"pulling everything into one clean, reliable system",
+    other:"building visibility across books, tax, and reporting"
   };
 
-  var FOCUS = {
-    bookkeeping:{myself:"turning manual books into a reliable monthly close",outside_firm:"reviewing your current firm's output and where the books can improve",in_house:"adding review, controls, and reporting around your in-house bookkeeping",behind:"cleanup first, then reliable monthly bookkeeping"},
-    taxes:{filing:"getting this year filed cleanly and on time",planning:"tax planning opportunities before they become deadline problems",behind:"catching up on filings and reducing deadline risk",multi_entity:"mapping entity and state complexity and reducing filing risk"},
-    rd_credits:{never:"first-time R&D credit eligibility and potential recovery",once_or_twice:"reviewing prior R&D credit claims and improvement areas",every_year:"making the annual R&D credit process cleaner and better supported",unsure:"checking R&D eligibility from the work your practice already does"},
-    cfo:{expansion:"the numbers you need to plan an expansion or major purchase with confidence",cash_flow:"clear cash flow visibility for the practice",reporting:"reporting your partners and lenders can rely on, every month",growing:"finance operations that keep up as the practice grows"},
-    everything:{messy_books:"cleaning up the books before layering tax and CFO support",tax_surprises:"connecting books and tax planning to avoid surprises",no_visibility:"building visibility across books, tax, and reporting",growing_fast:"building a finance system that can support fast growth",something_else:"building visibility across books, tax, and reporting"},
-    not_sure:{less_time:"taking the most time-consuming financial work off your plate first",confident_numbers:"getting the monthly numbers reliable enough to act on",tax_surprises:"connecting books and tax planning so year-end stops surprising you",one_team:"bringing bookkeeping, taxes, and reporting under one coordinated team"}
+  // DIAG: the score screen's "what's driving this" cards, keyed by any negative-point answer tag.
+  var DIAG = {
+    late:        {tx:'Reports always late', sub:'By the time numbers land, the month is already over.'},
+    inconsistent:{tx:'Numbers don\u2019t add up', sub:'What you see and what\u2019s actually true don\u2019t match.'},
+    profit:      {tx:'No clear profitability view', sub:'You can\u2019t see what\u2019s actually making money and what isn\u2019t.'},
+    scattered:   {tx:'No single source of truth', sub:'Numbers live in spreadsheets and systems that don\u2019t talk to each other.'},
+    other:       {tx:'Something specific is off', sub:'You flagged a gap we didn\u2019t list \u2014 worth a closer look.'},
+    loc4:        {tx:'Multi-location complexity', sub:'4+ locations multiplies every consolidation problem above.'},
+    behind2:     {tx:'Books are 2+ months stale', sub:'Decisions right now are based on numbers from months ago.'},
+    behind1:     {tx:'Books run 1\u20132 months behind', sub:'Close, but still too slow to catch problems early.'}
   };
 
   function track(name, props){
@@ -670,49 +733,88 @@ window.addEventListener('load', function () {
     if (cur) cur.classList.remove('active');
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
+    var header = document.getElementById('quizHeader');
+    if (header) header.hidden = (step === 'evaluating' || step === 'book');
     track('z:page_view', { step: step });
   }
-  function bindOpts(containerId, picks, onPick){
-    var grp = document.getElementById(containerId);
-    grp.querySelectorAll('.opt').forEach(function(btn){
-      btn.onclick = function(){
-        grp.querySelectorAll('.opt').forEach(function(b){b.classList.remove('sel');});
-        btn.classList.add('sel');
-        onPick(btn.getAttribute('data-k'), btn.textContent.trim());
-      };
-    });
+
+  // ---- quiz progress bar + step label (shared header, hidden once s-eval/s-book take over in show()) ----
+  var QUIZ_PROGRESS = {q1:14, q2:40, q3:65, score:90, email:95, phone:98};
+  var QUIZ_STEP_TEXT = {
+    q1:'Question 1 of 3 \u00b7 then your score', q2:'Question 2 of 3 \u00b7 then your score',
+    q3:'Question 3 of 3 \u00b7 last one!', score:'Your score is ready',
+    email:'Almost there', phone:'Last step'
+  };
+  function setQuizProgress(step){
+    var bar = document.getElementById('quiz-bar'), label = document.getElementById('quiz-step-label');
+    if (bar) bar.style.width = (QUIZ_PROGRESS[step]||100) + '%';
+    if (label) label.textContent = QUIZ_STEP_TEXT[step]||'';
   }
 
-  bindOpts('opts-service', null, function(k, label){
-    answers.service = k;
-    track('z:answer', { step:'service', value:k, label:label });
-    renderSituation(k);
-    setTimeout(function(){ show('s-situation','situation'); }, 180);
-  });
-
-  function renderSituation(serviceKey){
-    var def = SITUATIONS[serviceKey];
-    document.getElementById('sit-q').innerHTML = def.title;
-    var subEl = document.getElementById('sit-sub');
-    subEl.textContent = def.sub; subEl.style.display = def.sub ? '' : 'none';
-    var wrap = document.getElementById('opts-situation');
-    wrap.innerHTML = def.opts.map(function(o){ return '<button class="opt" data-k="'+o[1]+'">'+o[0]+'</button>'; }).join('');
-    bindOpts('opts-situation', null, function(k, label){
-      answers.situation = k;
-      track('z:answer', { step:'situation', value:k, label:label });
-      setTimeout(function(){ show('s-phone','phone'); }, 180);
-    });
-  }
-
-  (function(){
-    var seg = new URLSearchParams(qs).get('segment');
-    if (seg) {
-      var rows = seg.split('|').slice(0,2).map(function(s,i){
-        var t = s.trim(); return i===1 ? '<span class="g">'+t+'</span>' : t;
+  // ---- Q1/Q2/Q3: tally a 0-100 score as the visitor answers, same pick used for FOCUS + DIAG ----
+  var quizScore = 100, quizPicks = [];
+  function bindQuiz(containerId, step, nextId, nextStep, afterPick){
+    document.getElementById(containerId).querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var pts = parseInt(btn.getAttribute('data-pts'), 10) || 0;
+        var k = btn.getAttribute('data-k'), label = btn.textContent.trim();
+        quizScore += pts; quizPicks.push({tag:k, pts:pts});
+        answers[step] = k;
+        track('z:answer', { step: step, value: k, label: label });
+        if (afterPick) afterPick();
+        setQuizProgress(nextStep);
+        show(nextId, nextStep);
       });
-      document.getElementById('seg-head-wrap').innerHTML = '<h1 class="seg-head">'+rows.join('<br>')+'</h1>';
+    });
+  }
+  bindQuiz('opts-q1', 'q1', 's-q2', 'q2');
+  bindQuiz('opts-q2', 'q2', 's-q3', 'q3');
+  bindQuiz('opts-q3', 'q3', 's-score', 'score', renderScore);
+
+  function renderScore(){
+    var score = Math.max(20, Math.min(95, quizScore));
+    var num = document.getElementById('scoreNum');
+    var fill = document.getElementById('gaugeFill');
+    var pill = document.getElementById('verdictPill');
+    var title = document.getElementById('scoreTitle');
+    var list = document.getElementById('dragList');
+
+    var zone;
+    if (score >= 78) { zone = {c:'var(--green-tx)', bg:'var(--green-bg)', label:'Mostly clear', verdict:'You\u2019re in good shape \u2014 let\u2019s see if there\u2019s an even cleaner setup waiting.'}; }
+    else if (score >= 45) { zone = {c:'var(--amber)', bg:'var(--amber-bg)', label:'Real gaps', verdict:'There are real blind spots worth fixing before they compound.'}; }
+    else { zone = {c:'var(--red)', bg:'var(--red-bg)', label:'High fog', verdict:'Your numbers are foggier than they should be \u2014 worth a fast fix.'}; }
+
+    pill.style.background = zone.bg; pill.style.color = zone.c;
+    pill.textContent = zone.label;
+    title.textContent = zone.verdict;
+    fill.style.stroke = zone.c;
+
+    var circumference = 2 * Math.PI * 50;
+    var dash = (score/100) * circumference;
+    requestAnimationFrame(function(){ fill.style.strokeDasharray = dash.toFixed(1) + ' ' + circumference.toFixed(1); });
+    var dur = 900, t0 = null;
+    function tick(ts){
+      if (!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0)/dur);
+      num.textContent = Math.round(p * score);
+      if (p < 1) requestAnimationFrame(tick);
     }
-  })();
+    requestAnimationFrame(tick);
+
+    // the 2 answers that hurt the score MOST (by actual point impact), not just the first 2 answered
+    list.innerHTML = '';
+    quizPicks.filter(function(p){ return DIAG[p.tag] && p.pts < 0; })
+      .sort(function(a,b){ return a.pts - b.pts; })
+      .slice(0, 2)
+      .forEach(function(p){
+        var d = DIAG[p.tag];
+        var row = document.createElement('div');
+        row.className = 'drag-item';
+        row.innerHTML = '<span class="ic">!</span><div class="tx">'+d.tx+'<small>'+d.sub+'</small></div>';
+        list.appendChild(row);
+      });
+  }
+
   document.querySelectorAll('.testi').forEach(function(testi){
     var track = testi.querySelector('.testi-track'), dotsWrap = testi.querySelector('.testi-dots');
     if (!track || !dotsWrap || track.dataset.sliderInit) return;
@@ -728,6 +830,9 @@ window.addEventListener('load', function () {
     }
     setInterval(function(){ go((i+1) % n); }, 4500);
   });
+
+  document.getElementById('toEmailBtn').addEventListener('click', function(){ setQuizProgress('email'); show('s-email','email'); });
+
   var emailInput = document.getElementById('email');
   var emailErr = document.getElementById('email-err');
   try { var preEmail = new URLSearchParams(qs).get('email'); if (preEmail) emailInput.value = preEmail; } catch(e){}
@@ -738,7 +843,8 @@ window.addEventListener('load', function () {
     answers.email = v;
     try { if (window.posthog) posthog.identify(v, { email: v }); } catch(e){}
     track('z:email_captured', { email: v });
-    show('s-service','service');
+    setQuizProgress('phone');
+    show('s-phone','phone');
   }
   document.getElementById('email-continue').addEventListener('click', submitEmail);
   emailInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitEmail(); });
@@ -778,14 +884,15 @@ window.addEventListener('load', function () {
   }
 
   function gotoBook(){
-    var focus = (FOCUS[answers.service] && FOCUS[answers.service][answers.situation]) || 'building visibility across books, tax, and reporting';
+    var focus = FOCUS[answers.q1] || 'building visibility across books, tax, and reporting';
     document.getElementById('focus-text').textContent = focus;
     show('s-book','book');
     track('z:calendar_view', {});
     setTimeout(function(){ track('z:booked_heuristic_fired', {}); }, 8000);
   }
 
-  show('s-welcome','welcome');
+  setQuizProgress('q1');
+  show('s-q1','q1');
 })();
 </script>
 </body>
