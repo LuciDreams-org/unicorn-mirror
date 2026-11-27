@@ -196,6 +196,29 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   .seg-head{font-family:"Work Sans",sans-serif;font-weight:800;font-size:27px;line-height:1.2;text-align:center;margin:4px 0 16px}
   .seg-head .g{background:linear-gradient(135deg,var(--purple1),var(--purple2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
+  /* Short-viewport fix 2026-11-27 (Erez): on a real phone's actual visible height (Facebook's
+     in-app browser chrome eats a lot of it, and small/older phones are shorter to start with),
+     q1/q2/q3's options -- especially q3's third option, the one someone with out-of-date books
+     needs to pick -- were falling below the fold with no visible scroll cue. People couldn't
+     reach/tap their true (worst) answer and landed on a visible-but-better one instead, which is
+     why the Financial Clarity Score kept coming back ~95 regardless of real answers: 95 is only
+     reachable via GOOD answers, never via q3's worst option (confirmed: max with it selected is
+     66). Compacts the quiz header + question + options so all 3 options fit without scrolling on
+     short real-device viewports, without changing anything at normal/tall viewport heights.
+     Scoped to max-width too so it never touches the desktop floating-card layout. */
+  @media (max-height:700px) and (max-width:860px){
+    .app{padding-top:14px;padding-bottom:14px}
+    .kicker-logo{height:20px;margin:0 auto 8px}
+    .eyebrow{margin-bottom:5px}
+    .trust-top{margin-bottom:8px}
+    .bar{margin-bottom:14px}
+    .step-label{margin:-8px 0 10px}
+    .q{font-size:21px;margin-bottom:5px}
+    .qsub{margin-bottom:12px}
+    .opts{gap:9px}
+    .opt{padding:14px 16px;font-size:16px}
+  }
+
   /* ---- desktop: floating card instead of an edge-to-edge mobile sheet ---- */
   @media (min-width:860px){
     body{padding:56px 20px;align-items:flex-start}
