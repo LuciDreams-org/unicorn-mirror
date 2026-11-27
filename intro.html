@@ -512,6 +512,28 @@ window.addEventListener('load', function () {
     </div>
   </section>
 
+  <!-- ============ SCREEN: CEO READY (added 2026-11-27, Erez) -- shows availability + a CTA
+       before the actual calendar, instead of mixing that content into the booking screen itself.
+       Reuses the .bk-top/.bk-h1/.bk-sub/.spw* classes that used to live on s-book before it was
+       stripped down to just the calendar earlier this session. ============ -->
+  <section class="screen" id="s-ready">
+    <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
+    <h1 class="bk-h1">You're a strong fit.</h1>
+    <p class="bk-sub">Book a free 15-minute call.</p>
+    <div class="spw">
+      <div class="spw-left">
+        <img class="spw-avatar" src="https://www.lucid.now/assets/img/erez-profile.jpg" alt="" />
+        <div class="spw-text">
+          <div class="spw-label">You'll be speaking with</div>
+          <div class="spw-name">Erez Lankri <span class="spw-role">&middot; CEO, Lucid</span></div>
+        </div>
+      </div>
+      <span class="spw-badge"><i class="spw-dot"></i>Available this week</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="cta" id="toBookBtn">Book my consultation <span>&#8594;</span></button>
+  </section>
+
   <!-- ============ SCREEN 6: BOOK ============ -->
   <!-- Stripped to just the calendar 2026-11-27 (Erez): dropped the logo/headline/subtitle,
        "meeting will focus on X" line, and "speaking with Erez" card -- just the loader + iframe. -->
@@ -534,16 +556,23 @@ window.addEventListener('load', function () {
   if (window.__intro) return;
   var FUNNEL_ID='9001', FUNNEL_NAME='email-hero-native', GA4_ID='G-C7R39B4QSW';
   var ENDPOINT='https://zellify-ingest.49-13-173-94.sslip.io/events', KEY='Hk2qD9M1DpgyTQSKnEkrG9IECCTcqba3SgFrym3RzYs';
-  var SLUG={q1:'q1',q2:'q2',q3:'q3',score:'score',email:'email',phone:'phone',evaluating:'meeting-ready',book:'book'};
+  var SLUG={q1:'q1',q2:'q2',q3:'q3',evaluating:'score-calc',score:'score',email:'email',phone:'phone',ready:'meeting-ready',book:'book'};
   // Redesigned 2026-11-26 (get.lucid.now only): Financial Clarity Score quiz replaces the old
-  // email-first/service/situation front-of-funnel. Real click-through order is now
-  // q1 -> q2 -> q3 -> score -> email -> phone -> evaluating -> book (s-eval/s-book, the live Google
-  // Calendar embed + its 8s-dwell booked_heuristic_fired tracking, are UNCHANGED from before).
-  // 'q1'/'q2'/'q3'/'score' are new page_slug values, not new event names (no change needed on the
-  // Zellify/Meta/GA4 side per the parity rule above) but, like 'phone' before them, aren't yet in the
-  // shared cross-funnel PAGE_ORDER (same caveat already flagged for this funnel's broken deepest_page
-  // ranking -- see docs/marketing-traffic-flow.md section 9).
-  var ORDER=['q1','q2','q3','score','email','phone','evaluating','book'];
+  // email-first/service/situation front-of-funnel. Updated again 2026-11-27 (Erez): the
+  // "evaluating" loading screen moved from pre-booking to right after q3 (now reads as
+  // "crunching the score", page_slug 'score-calc' -- renamed from 'meeting-ready' since its
+  // meaning changed), and a new screen (s-ready, page_slug 'meeting-ready' -- the slug's original
+  // meaning, now correctly describing THIS screen) was added right before booking to show the
+  // CEO's availability + a "Book my consultation" CTA. Real click-through order is now
+  // q1 -> q2 -> q3 -> evaluating(score-calc) -> score -> email -> phone -> ready(meeting-ready) ->
+  // book (s-book, the live Google Calendar embed + its 8s-dwell booked_heuristic_fired tracking,
+  // is UNCHANGED from before).
+  // 'q1'/'q2'/'q3'/'score'/'score-calc'/'meeting-ready' are new-or-renamed page_slug values, not
+  // new event names (no change needed on the Zellify/Meta/GA4 side per the parity rule above) but,
+  // like 'phone' before them, aren't yet in the shared cross-funnel PAGE_ORDER (same caveat already
+  // flagged for this funnel's broken deepest_page ranking -- see docs/marketing-traffic-flow.md
+  // section 9).
+  var ORDER=['q1','q2','q3','evaluating','score','email','phone','ready','book'];
   var ps=new URLSearchParams(location.search||'');
   var OFF=ps.has('tracking_off')||ps.get('test')==='1';
   var I={off:OFF}; window.__intro=I;
@@ -747,7 +776,7 @@ window.addEventListener('load', function () {
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
     var header = document.getElementById('quizHeader');
-    if (header) header.hidden = (step === 'evaluating' || step === 'book');
+    if (header) header.hidden = (step === 'evaluating' || step === 'ready' || step === 'book');
     track('z:page_view', { step: step });
   }
 
@@ -888,10 +917,11 @@ window.addEventListener('load', function () {
     phoneErr.style.display='none';
     answers.phone = v;
     track('z:answer', { step:'phone', value:v, label:v });
-    gotoBook();
+    show('s-ready', 'ready');
   }
   document.getElementById('phone-continue').addEventListener('click', submitPhone);
   phoneInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitPhone(); });
+  document.getElementById('toBookBtn').addEventListener('click', gotoBook);
 
   // Preloads the Google Calendar iframe in the background as early as possible (now at q3,
   // instead of right before booking) so it's already warm by the time the visitor reaches
