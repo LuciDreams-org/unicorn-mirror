@@ -71,7 +71,14 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
 <link rel="icon" href="https://www.lucid.now/assets/img/logo-mark.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<!-- Load non-blocking (2026-11-27, PageSpeed): this stylesheet was render-blocking, costing ~700ms
+     of "element render delay" on the LCP text element (q1's H2) per PageSpeed Insights -- the
+     headline couldn't paint until this CSS downloaded. media="print" + onload swap is the standard
+     non-blocking pattern; the URL's own &display=swap means text still renders immediately in a
+     fallback font and swaps in once the webfont loads, no invisible-text wait either way. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" />
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
 <!-- PostHog (same project as www.lucid.now) -->
 <script defer src="https://ingest.lucid.now/ingest/static/array.js"></script>
 <script>
@@ -440,7 +447,7 @@ window.addEventListener('load', function () {
 
   <!-- ============ SHARED HEADER (hidden once s-eval/s-book take over) ============ -->
   <div id="quizHeader">
-    <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <img class="kicker-logo" src="assets/logo-192x60.webp" width="192" height="60" alt="Lucid" />
     <div class="hero-title">
       <div class="hero-row1">Get Your Financial Health Score</div>
       <div class="hero-row2">+ $100M Practice Playbook</div>
@@ -532,7 +539,7 @@ window.addEventListener('load', function () {
 
   <!-- ============ SCREEN 4: CALCULATING SCORE (moved here from pre-booking 2026-11-27, Erez) ============ -->
   <section class="screen center" id="s-eval">
-    <img class="logo-top" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
+    <img class="logo-top" src="assets/logo-192x60.webp" width="192" height="60" alt="Lucid" />
     <div class="evalwrap">
       <h2>Crunching your answers</h2>
       <p>Calculating your Financial Health Score.</p>
@@ -549,7 +556,7 @@ window.addEventListener('load', function () {
        Reuses the .bk-top/.bk-h1/.bk-sub/.spw* classes that used to live on s-book before it was
        stripped down to just the calendar earlier this session. ============ -->
   <section class="screen" id="s-ready">
-    <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
+    <div class="bk-top"><img class="logo-c" src="assets/logo-192x60.webp" width="192" height="60" alt="Lucid" /></div>
     <h1 class="bk-h1">You're a strong fit.</h1>
     <p class="bk-sub">Book a free call.</p>
     <!-- Added 2026-11-27 (Erez): recap the score + show an explicit eligibility checklist
