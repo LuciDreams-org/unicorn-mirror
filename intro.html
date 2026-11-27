@@ -176,6 +176,16 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   .spw-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-bg);color:var(--green-tx);font-weight:700;font-size:11px;padding:5px 9px;border-radius:99px;font-family:"Work Sans",sans-serif;white-space:nowrap;flex:none;margin-top:2px}
   .spw-dot{width:7px;height:7px;border-radius:50%;background:var(--green-tx);display:inline-block}
   @media (max-width:420px){.spw-label{display:none}.spw-badge{font-size:10px;padding:4px 7px}}
+  /* Added 2026-11-27 (Erez): gift/score recap card on s-ready, and the matching teaser badge on q1 */
+  .gift-card{background:#fff;border:1.5px solid #eceef2;border-radius:16px;padding:16px 16px 14px;box-shadow:0 6px 16px rgba(30,25,70,.05);margin-bottom:8px;text-align:left}
+  .gift-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .gift-ic{flex:none;font-size:20px;line-height:1}
+  .gift-tx{font-family:"Work Sans",sans-serif;font-size:14px;line-height:1.45;color:#2b3040;margin:0}
+  .gift-tx b{color:var(--ink)}
+  .gift-score{font-family:"Work Sans",sans-serif;font-size:13px;font-weight:700;color:var(--muted);border-top:1px solid #eceef2;padding-top:10px}
+  .gift-score b{color:var(--purple2);font-size:16px}
+  .gift-score span{font-weight:600;color:var(--muted)}
+  .gift-teaser{display:flex;align-items:center;gap:7px;background:var(--green-bg);color:var(--green-tx);font-family:"Work Sans",sans-serif;font-weight:700;font-size:12.5px;padding:9px 13px;border-radius:12px;margin-bottom:16px;line-height:1.3}
   .host{display:flex;align-items:center;gap:12px;margin:20px 0 6px}
   .host img{width:40px;height:40px;border-radius:50%;object-fit:cover}
   .host .n{font-size:18px}
@@ -207,16 +217,18 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
      short real-device viewports, without changing anything at normal/tall viewport heights.
      Scoped to max-width too so it never touches the desktop floating-card layout. */
   @media (max-height:700px) and (max-width:860px){
-    .app{padding-top:14px;padding-bottom:14px}
-    .kicker-logo{height:20px;margin:0 auto 8px}
-    .eyebrow{margin-bottom:5px}
-    .trust-top{margin-bottom:8px}
-    .bar{margin-bottom:14px}
-    .step-label{margin:-8px 0 10px}
-    .q{font-size:21px;margin-bottom:5px}
-    .qsub{margin-bottom:12px}
-    .opts{gap:9px}
-    .opt{padding:14px 16px;font-size:16px}
+    .app{padding-top:10px;padding-bottom:10px}
+    .kicker-logo{height:18px;margin:0 auto 6px}
+    .eyebrow{margin-bottom:4px}
+    .trust-top{margin-bottom:6px}
+    .bar{margin-bottom:10px}
+    .step-label{margin:-6px 0 8px}
+    .q{font-size:20px;margin-bottom:4px}
+    .qsub{margin-bottom:8px}
+    .opts{gap:6px}
+    .opt{padding:10px 14px;font-size:15px}
+    /* q1's gift teaser (5-option screen, tightest one with it added) needs to shrink too */
+    .gift-teaser{padding:5px 10px;margin-bottom:6px;font-size:11px}
   }
 
   /* ---- desktop: floating card instead of an edge-to-edge mobile sheet ---- */
@@ -423,6 +435,7 @@ window.addEventListener('load', function () {
   <section class="screen active" id="s-q1">
     <h2 class="q">What's <span class="hl">weighing on you</span> most?</h2>
     <p class="qsub">One tap, no typing.</p>
+    <div class="gift-teaser"><span>&#127873;</span> Finish the quiz &amp; get the free $100M Practice Playbook</div>
     <div class="opts" id="opts-q1" data-step="q1">
       <button class="opt" data-k="late" data-pts="-18">Our reports always come in late</button>
       <button class="opt" data-k="inconsistent" data-pts="-26">Numbers never quite add up</button>
@@ -520,6 +533,15 @@ window.addEventListener('load', function () {
     <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
     <h1 class="bk-h1">You're a strong fit.</h1>
     <p class="bk-sub">Book a free 15-minute call.</p>
+    <!-- Added 2026-11-27 (Erez): recap the score + emphasize the gift (3-step plan + named lead
+         magnet) before the CTA, instead of just the bare CEO-availability card. -->
+    <div class="gift-card">
+      <div class="gift-row">
+        <span class="gift-ic">&#127873;</span>
+        <p class="gift-tx">Your gift: a personalized <b>3-step plan</b> to fix what's driving your score, plus our <b>$100M Practice Playbook</b> &mdash; the exact playbook practices use to scale past $100M.</p>
+      </div>
+      <div class="gift-score">Your Financial Health Score: <b id="readyScoreNum">--</b><span>/100</span></div>
+    </div>
     <div class="spw">
       <div class="spw-left">
         <img class="spw-avatar" src="https://www.lucid.now/assets/img/erez-profile.jpg" alt="" />
@@ -794,7 +816,7 @@ window.addEventListener('load', function () {
   }
 
   // ---- Q1/Q2/Q3: tally a 0-100 score as the visitor answers, same pick used for FOCUS + DIAG ----
-  var quizScore = 100, quizPicks = [];
+  var quizScore = 100, quizPicks = [], finalScore = 0;
   function bindQuiz(containerId, step, nextId, nextStep, afterPick){
     document.getElementById(containerId).querySelectorAll('.opt').forEach(function(btn){
       btn.addEventListener('click', function(){
@@ -833,6 +855,7 @@ window.addEventListener('load', function () {
     // Capped at 77 (Erez, 2026-11-27): keeps every visitor at or below the "Mostly clear" (78+)
     // threshold, so nobody ever gets told they're basically fine -- there's always a reason to book.
     var score = Math.max(20, Math.min(77, quizScore));
+    finalScore = score;
     var num = document.getElementById('scoreNum');
     var fill = document.getElementById('gaugeFill');
     var pill = document.getElementById('verdictPill');
@@ -917,6 +940,8 @@ window.addEventListener('load', function () {
     phoneErr.style.display='none';
     answers.phone = v;
     track('z:answer', { step:'phone', value:v, label:v });
+    var readyScoreEl = document.getElementById('readyScoreNum');
+    if (readyScoreEl) readyScoreEl.textContent = finalScore;
     show('s-ready', 'ready');
   }
   document.getElementById('phone-continue').addEventListener('click', submitPhone);
