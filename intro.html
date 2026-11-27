@@ -485,24 +485,9 @@ window.addEventListener('load', function () {
   </section>
 
   <!-- ============ SCREEN 6: BOOK ============ -->
+  <!-- Stripped to just the calendar 2026-11-27 (Erez): dropped the logo/headline/subtitle,
+       "meeting will focus on X" line, and "speaking with Erez" card -- just the loader + iframe. -->
   <section class="screen" id="s-book">
-    <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
-    <h1 class="bk-h1">You're a strong fit.</h1>
-    <p class="bk-sub">Pick a time below to secure your spot.</p>
-    <div class="focus">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 15 2 2 4-4"/></svg></span>
-      <p>Your meeting will focus on <strong id="focus-text">building visibility across books, tax, and reporting</strong>.</p>
-    </div>
-    <div class="spw">
-      <div class="spw-left">
-        <img class="spw-avatar" src="https://www.lucid.now/assets/img/erez-profile.jpg" alt="" />
-        <div class="spw-text">
-          <div class="spw-label">You'll be speaking with</div>
-          <div class="spw-name">Erez Lankri <span class="spw-role">&middot; CEO, Lucid</span></div>
-        </div>
-      </div>
-      <span class="spw-badge"><i class="spw-dot"></i>Available this week</span>
-    </div>
     <div class="bk-loader" id="bk-loader" role="status" aria-label="Loading available times"><i></i><span class="bk-loadtxt">Loading your available times&hellip;</span></div>
     <div class="calwrap">
       <iframe id="gcal" title="Select an appointment time" src="about:blank" data-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3UtR10qOKHKVsKGZ0KHoHals6kJncyOATW6yWoPu2_aCXCTZYW1J5UrDKORQ64XkFlpqNxNg3Z?gv=true"></iframe>
@@ -884,8 +869,6 @@ window.addEventListener('load', function () {
   }
 
   function gotoBook(){
-    var focus = FOCUS[answers.q1] || 'building visibility across books, tax, and reporting';
-    document.getElementById('focus-text').textContent = focus;
     show('s-book','book');
     track('z:calendar_view', {});
     setTimeout(function(){ track('z:booked_heuristic_fired', {}); }, 8000);
