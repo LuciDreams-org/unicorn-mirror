@@ -143,7 +143,7 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   .q .hl{color:#7C3AED}
   .qsub{font-size:16px;line-height:1.45;color:#8b92a0;margin-bottom:22px}
   .opts{display:flex;flex-direction:column;gap:14px}
-  .opt{width:100%;text-align:left;background:#fff;border:1.5px solid #eceef2;border-radius:18px;padding:22px 22px;font-family:"Work Sans",sans-serif;font-weight:700;font-size:18px;color:#272c3a;cursor:pointer;box-shadow:0 6px 16px rgba(30,25,70,.05);transition:transform .12s,border-color .12s,box-shadow .12s}
+  .opt{width:100%;text-align:left;background:#fff;border:2.5px solid #d7dae2;border-radius:18px;padding:22px 22px;font-family:"Work Sans",sans-serif;font-weight:700;font-size:18px;color:#272c3a;cursor:pointer;box-shadow:0 6px 16px rgba(30,25,70,.05);transition:transform .12s,border-color .12s,box-shadow .12s}
   .opt:hover{border-color:#cdbcff}
   .opt:active,.opt.sel{transform:scale(.99);border-color:#8B5CF6;box-shadow:0 0 0 3px rgba(139,92,246,.16)}
 
@@ -186,6 +186,7 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   .gift-score b{color:var(--purple2);font-size:16px}
   .gift-score span{font-weight:600;color:var(--muted)}
   .gift-teaser{display:flex;align-items:center;gap:7px;background:var(--green-bg);color:var(--green-tx);font-family:"Work Sans",sans-serif;font-weight:700;font-size:12.5px;padding:9px 13px;border-radius:12px;margin-bottom:16px;line-height:1.3}
+  .gift-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;color:var(--muted);font-weight:700;font-size:12px;font-family:"Work Sans",sans-serif;text-align:center}
   .host{display:flex;align-items:center;gap:12px;margin:20px 0 6px}
   .host img{width:40px;height:40px;border-radius:50%;object-fit:cover}
   .host .n{font-size:18px}
@@ -229,6 +230,9 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
     .opt{padding:10px 14px;font-size:15px}
     /* q1's gift teaser (5-option screen, tightest one with it added) needs to shrink too */
     .gift-teaser{padding:5px 10px;margin-bottom:6px;font-size:11px}
+    /* the second Playbook mention below the options is a nice-to-have, not load-bearing --
+       drop it on short viewports rather than fight for the vertical space back */
+    .gift-foot{display:none}
   }
 
   /* ---- desktop: floating card instead of an edge-to-edge mobile sheet ---- */
@@ -435,7 +439,7 @@ window.addEventListener('load', function () {
   <section class="screen active" id="s-q1">
     <h2 class="q">What's <span class="hl">weighing on you</span> most?</h2>
     <p class="qsub">One tap, no typing.</p>
-    <div class="gift-teaser"><span>&#127873;</span> Finish the quiz &amp; get the free $100M Practice Playbook</div>
+    <div class="gift-teaser"><span>&#127873;</span> Get your Financial Health Score + the $100M Practice Playbook</div>
     <div class="opts" id="opts-q1" data-step="q1">
       <button class="opt" data-k="late" data-pts="-18">Our reports always come in late</button>
       <button class="opt" data-k="inconsistent" data-pts="-26">Numbers never quite add up</button>
@@ -443,6 +447,7 @@ window.addEventListener('load', function () {
       <button class="opt" data-k="scattered" data-pts="-22">Everything's scattered across spreadsheets</button>
       <button class="opt" data-k="other" data-pts="-22">Something else</button>
     </div>
+    <div class="gift-foot"><span>&#128214;</span> Includes: The $100M Practice Playbook</div>
   </section>
 
   <!-- ============ SCREEN 2: Q2 ============ -->
