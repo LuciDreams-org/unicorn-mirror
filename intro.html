@@ -74,11 +74,17 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
 <!-- Load non-blocking (2026-11-27, PageSpeed): this stylesheet was render-blocking, costing ~700ms
      of "element render delay" on the LCP text element (q1's H2) per PageSpeed Insights -- the
      headline couldn't paint until this CSS downloaded. media="print" + onload swap is the standard
-     non-blocking pattern; the URL's own &display=swap means text still renders immediately in a
-     fallback font and swaps in once the webfont loads, no invisible-text wait either way. -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" />
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;" />
-<noscript><link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" /></noscript>
+     non-blocking pattern.
+     Round 2 (PageSpeed): switched &display=swap -> &display=optional. swap still measured worse on
+     LCP after round 1 -- under throttled conditions, the late webfont-swap repaint itself was
+     being counted as the LCP timestamp (862ms "element render delay" in the breakdown, but a 6.0s
+     reported LCP), confirmed via lcp-breakdown-insight. optional shows the fallback font immediately
+     and simply keeps it if the webfont isn't ready almost instantly -- no later swap repaint to
+     inflate LCP, at the cost of the custom font sometimes not applying on a very slow first load
+     (acceptable tradeoff on a conversion funnel: speed over brand-font purity on a cold/slow load). -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=optional" />
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=optional" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400..800&family=Sora:wght@600;700;800&display=optional" rel="stylesheet" /></noscript>
 <!-- PostHog (same project as www.lucid.now) -->
 <script defer src="https://ingest.lucid.now/ingest/static/array.js"></script>
 <script>
