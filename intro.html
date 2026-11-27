@@ -498,16 +498,16 @@ window.addEventListener('load', function () {
     <button class="cta" id="phone-continue">Finish <span>&#8594;</span></button>
   </section>
 
-  <!-- ============ SCREEN 7: MEETING-READY (evaluating) ============ -->
+  <!-- ============ SCREEN 4: CALCULATING SCORE (moved here from pre-booking 2026-11-27, Erez) ============ -->
   <section class="screen center" id="s-eval">
     <img class="logo-top" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
     <div class="evalwrap">
-      <h2>Creating your profile</h2>
-      <p>Reviewing your practice and evaluating fit.</p>
+      <h2>Crunching your answers</h2>
+      <p>Calculating your Financial Health Score.</p>
       <div class="evalcard">
-        <div class="row"><b>Evaluating fit</b><span class="pct" id="eval-pct">0%</span></div>
+        <div class="row"><b>Calculating score</b><span class="pct" id="eval-pct">0%</span></div>
         <div class="bar"><i id="eval-bar" style="width:0%"></i></div>
-        <div class="note">Evaluating your answers&hellip;</div>
+        <div class="note">Finalizing your score&hellip;</div>
       </div>
     </div>
   </section>
@@ -782,10 +782,28 @@ window.addEventListener('load', function () {
   }
   bindQuiz('opts-q1', 'q1', 's-q2', 'q2');
   bindQuiz('opts-q2', 'q2', 's-q3', 'q3');
-  bindQuiz('opts-q3', 'q3', 's-score', 'score', renderScore);
+  // q3 doesn't use bindQuiz's immediate-transition pattern: moved 2026-11-27 (Erez) so the
+  // "evaluating" loading screen plays right after q3, before the score reveals, instead of
+  // right before booking -- see runEval()/preloadCalendar() below.
+  document.getElementById('opts-q3').querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pts = parseInt(btn.getAttribute('data-pts'), 10) || 0;
+      var k = btn.getAttribute('data-k'), label = btn.textContent.trim();
+      quizScore += pts; quizPicks.push({tag:k, pts:pts});
+      answers.q3 = k;
+      track('z:answer', { step: 'q3', value: k, label: label });
+      runEval(function(){
+        renderScore();
+        setQuizProgress('score');
+        show('s-score', 'score');
+      });
+    });
+  });
 
   function renderScore(){
-    var score = Math.max(20, Math.min(95, quizScore));
+    // Capped at 77 (Erez, 2026-11-27): keeps every visitor at or below the "Mostly clear" (78+)
+    // threshold, so nobody ever gets told they're basically fine -- there's always a reason to book.
+    var score = Math.max(20, Math.min(77, quizScore));
     var num = document.getElementById('scoreNum');
     var fill = document.getElementById('gaugeFill');
     var pill = document.getElementById('verdictPill');
@@ -870,15 +888,19 @@ window.addEventListener('load', function () {
     phoneErr.style.display='none';
     answers.phone = v;
     track('z:answer', { step:'phone', value:v, label:v });
-    runEval();
+    gotoBook();
   }
   document.getElementById('phone-continue').addEventListener('click', submitPhone);
   phoneInput.addEventListener('keydown', function(e){ if(e.key==='Enter') submitPhone(); });
 
-  function runEval(){
-    show('s-eval','evaluating');
+  // Preloads the Google Calendar iframe in the background as early as possible (now at q3,
+  // instead of right before booking) so it's already warm by the time the visitor reaches
+  // s-book -- guarded by dataset.preloaded so it only ever fires once.
+  function preloadCalendar(){
+    var f = document.getElementById('gcal');
+    if (!f || f.dataset.preloaded) return;
+    f.dataset.preloaded = '1';
     try {
-      var f = document.getElementById('gcal');
       var src = f.getAttribute('data-src');
       if (qs) src += (src.indexOf('?')>-1?'&':'?') + qs.replace(/^\?/,'');
       var ld = document.getElementById('bk-loader');
@@ -887,16 +909,22 @@ window.addEventListener('load', function () {
       setTimeout(hideLoader, 12000);
       f.src = src;
     } catch(e){}
+  }
+
+  function runEval(onDone){
+    show('s-eval','evaluating');
+    preloadCalendar();
     var bar = document.getElementById('eval-bar'), pct = document.getElementById('eval-pct');
     var p = 0;
     var t = setInterval(function(){
       p += Math.max(2, Math.round((100-p)*0.12));
-      if (p >= 100) { p = 100; clearInterval(t); setTimeout(gotoBook, 1500); }
+      if (p >= 100) { p = 100; clearInterval(t); setTimeout(onDone, 1500); }
       bar.style.width = p+'%'; pct.textContent = p+'%';
     }, 90);
   }
 
   function gotoBook(){
+    preloadCalendar(); // no-op fallback if q3's runEval already warmed it up
     show('s-book','book');
     track('z:calendar_view', {});
     setTimeout(function(){ track('z:booked_heuristic_fired', {}); }, 8000);
