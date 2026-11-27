@@ -182,10 +182,10 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   @media (max-width:420px){.spw-label{display:none}.spw-badge{font-size:10px;padding:4px 7px}}
   /* Added 2026-11-27 (Erez): gift/score recap card on s-ready, and the matching teaser badge on q1 */
   .gift-card{background:#fff;border:1.5px solid #eceef2;border-radius:16px;padding:16px 16px 14px;box-shadow:0 6px 16px rgba(30,25,70,.05);margin-bottom:8px;text-align:left}
-  .gift-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
-  .gift-ic{flex:none;font-size:20px;line-height:1}
-  .gift-tx{font-family:"Work Sans",sans-serif;font-size:14px;line-height:1.45;color:#2b3040;margin:0}
-  .gift-tx b{color:var(--ink)}
+  .gift-card-label{font-family:"Work Sans",sans-serif;font-weight:800;font-size:13px;color:var(--ink);margin-bottom:9px}
+  .elig-list{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:9px}
+  .elig-list li{display:flex;align-items:center;gap:10px;font-family:"Work Sans",sans-serif;font-size:14px;font-weight:500;color:#2b3040}
+  .elig-check{flex:none;width:17px;height:17px;border-radius:50%;background:#fff;border:1.5px solid var(--purple2);color:var(--purple2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
   .gift-score{font-family:"Work Sans",sans-serif;font-size:13px;font-weight:700;color:var(--muted);border-top:1px solid #eceef2;padding-top:10px}
   .gift-score b{color:var(--purple2);font-size:16px}
   .gift-score span{font-weight:600;color:var(--muted)}
@@ -221,16 +221,20 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
      short real-device viewports, without changing anything at normal/tall viewport heights.
      Scoped to max-width too so it never touches the desktop floating-card layout. */
   @media (max-height:700px) and (max-width:860px){
-    .app{padding-top:10px;padding-bottom:10px}
-    .kicker-logo{height:18px;margin:0 auto 6px}
-    .eyebrow{margin-bottom:4px}
-    .trust-top{margin-bottom:6px}
-    .bar{margin-bottom:10px}
-    .step-label{margin:-6px 0 8px}
-    .q{font-size:20px;margin-bottom:4px}
-    .qsub{margin-bottom:8px}
-    .opts{gap:6px}
-    .opt{padding:10px 14px;font-size:15px}
+    .app{padding-top:8px;padding-bottom:8px}
+    .kicker-logo{height:16px;margin:0 auto 4px}
+    .hero-title{margin-bottom:2px}
+    .hero-row1{font-size:15px}
+    .hero-row2{font-size:11px;padding:2px 9px;margin-top:3px}
+    /* trust line is a nice-to-have, not load-bearing -- drop it here to make room for the
+       now-bigger title, same reasoning as .gift-foot below */
+    .trust-top{display:none}
+    .bar{margin-bottom:8px}
+    .step-label{margin:-5px 0 6px}
+    .q{font-size:19px;margin-bottom:3px}
+    .qsub{margin-bottom:6px}
+    .opts{gap:5px}
+    .opt{padding:8px 12px;font-size:14px}
     /* the second Playbook mention below the options is a nice-to-have, not load-bearing --
        drop it on short viewports rather than fight for the vertical space back */
     .gift-foot{display:none}
@@ -258,13 +262,15 @@ window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   .trust-top{display:flex;align-items:center;justify-content:center;gap:7px;margin:0 0 14px}
   .trust-top .stars{color:var(--gold);font-size:13px;letter-spacing:1px}
   .trust-top .ttxt{font-family:"Work Sans",sans-serif;font-size:11.5px;font-weight:700;color:var(--muted)}
-  .eyebrow{text-align:center;font-family:"Work Sans",sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2);margin-bottom:8px}
+  .hero-title{text-align:center;margin-bottom:8px}
+  .hero-row1{font-family:"Work Sans",sans-serif;font-weight:800;font-size:20px;line-height:1.25;color:var(--ink);letter-spacing:-.01em}
+  .hero-row2{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e4d9fb;color:var(--purple2);font-family:"Work Sans",sans-serif;font-weight:700;font-size:14px;letter-spacing:.01em;line-height:1.3;padding:5px 16px;border-radius:999px;margin-top:7px;box-shadow:0 2px 8px rgba(124,58,237,.08)}
   .step-label{font-family:"Work Sans",sans-serif;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;margin:-16px 0 20px;min-height:15px}
   .score-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:4px}
   .gauge{position:relative;width:188px;height:188px;margin:6px auto 6px}
   .gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
   .gauge .track{fill:none;stroke:var(--ring);stroke-width:14}
-  .gauge .fill{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke-dasharray 1.1s cubic-bezier(.16,1,.3,1),stroke .4s}
+  .gauge .fill{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke .4s}
   .gauge .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Work Sans",sans-serif}
   .gauge .num b{font-size:46px;font-weight:800;line-height:1;color:var(--ink)}
   .gauge .num span{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:4px}
@@ -430,7 +436,10 @@ window.addEventListener('load', function () {
   <!-- ============ SHARED HEADER (hidden once s-eval/s-book take over) ============ -->
   <div id="quizHeader">
     <img class="kicker-logo" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" />
-    <div class="eyebrow">GET YOUR FINANCIAL HEALTH SCORE + $100M PRACTICE PLAYBOOK</div>
+    <div class="hero-title">
+      <div class="hero-row1">Get Your Financial Health Score</div>
+      <div class="hero-row2">+ $100M Practice Playbook</div>
+    </div>
     <div class="trust-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="ttxt">Trusted by 100+ medical practices</span></div>
     <div class="bar"><i id="quiz-bar" style="width:14%"></i></div>
     <div class="step-label" id="quiz-step-label">Question 1 of 3 &middot; then your score</div>
@@ -484,7 +493,7 @@ window.addEventListener('load', function () {
       </div>
       <!-- moved right below the score 2026-11-27 (Erez): was pinned to the bottom via .spacer,
            so it fell below the fold on mobile. Rest of the text now sits below it instead. -->
-      <button class="cta" id="toEmailBtn">Unlock my full breakdown <span>&#8594;</span></button>
+      <button class="cta" id="toEmailBtn">Unlock my breakdown + $100M playbook <span>&#8594;</span></button>
       <div class="verdict-pill" id="verdictPill">&nbsp;</div>
       <div class="score-title" id="scoreTitle">&nbsp;</div>
       <div class="drag-list" id="dragList"></div>
@@ -494,8 +503,8 @@ window.addEventListener('load', function () {
 
   <!-- ============ SCREEN 5: EMAIL ============ -->
   <section class="screen" id="s-email">
-    <h2 class="q">One last step &mdash; <span class="hl">where should we send it?</span></h2>
-    <p class="qsub">Your score, what's driving it, and a 3-step plan to fix it.</p>
+    <h2 class="q">Get your <span class="hl">$100M Practice Playbook</span> + 3-step plan</h2>
+    <p class="qsub">Your personalized plan to bring your Financial Health Score to 100 &mdash; where should we send it?</p>
     <label class="label" for="email">Email</label>
     <input class="field" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@practice.com" />
     <div class="err" id="email-err">Please enter a valid email.</div>
@@ -537,14 +546,17 @@ window.addEventListener('load', function () {
   <section class="screen" id="s-ready">
     <div class="bk-top"><img class="logo-c" src="https://www.lucid.now/assets/lucid-logo.webp" alt="Lucid" /></div>
     <h1 class="bk-h1">You're a strong fit.</h1>
-    <p class="bk-sub">Book a free 15-minute call.</p>
-    <!-- Added 2026-11-27 (Erez): recap the score + emphasize the gift (3-step plan + named lead
-         magnet) before the CTA, instead of just the bare CEO-availability card. -->
+    <p class="bk-sub">Book a free call.</p>
+    <!-- Added 2026-11-27 (Erez): recap the score + show an explicit eligibility checklist
+         (what they qualify for), instead of a prose gift blurb or a bare CEO-availability card.
+         Dropped the "15-minute" time reference per Erez -- don't commit to a duration here. -->
     <div class="gift-card">
-      <div class="gift-row">
-        <span class="gift-ic">&#127873;</span>
-        <p class="gift-tx">Your gift: a personalized <b>3-step plan</b> to fix what's driving your score, plus our <b>$100M Practice Playbook</b> &mdash; the exact playbook practices use to scale past $100M.</p>
-      </div>
+      <div class="gift-card-label">You're eligible for:</div>
+      <ul class="elig-list">
+        <li><span class="elig-check">&#10003;</span> A free call with Lucid's CEO</li>
+        <li><span class="elig-check">&#10003;</span> The $100M Practice Playbook</li>
+        <li><span class="elig-check">&#10003;</span> Your personalized 3-step plan</li>
+      </ul>
       <div class="gift-score">Your Financial Health Score: <b id="readyScoreNum">--</b><span>/100</span></div>
     </div>
     <div class="spw">
@@ -877,14 +889,18 @@ window.addEventListener('load', function () {
     title.textContent = zone.verdict;
     fill.style.stroke = zone.c;
 
+    // Circle fill and number count up together, driven by the same per-frame p -- previously the
+    // circle jumped to its final value in one frame and relied on a separate 1.1s CSS transition
+    // to animate it, which ran on its own timing/easing out of sync with the number's 900ms count.
     var circumference = 2 * Math.PI * 50;
-    var dash = (score/100) * circumference;
-    requestAnimationFrame(function(){ fill.style.strokeDasharray = dash.toFixed(1) + ' ' + circumference.toFixed(1); });
     var dur = 900, t0 = null;
     function tick(ts){
       if (!t0) t0 = ts;
       var p = Math.min(1, (ts - t0)/dur);
-      num.textContent = Math.round(p * score);
+      var shown = p * score;
+      num.textContent = Math.round(shown);
+      var dash = (shown/100) * circumference;
+      fill.style.strokeDasharray = dash.toFixed(1) + ' ' + circumference.toFixed(1);
       if (p < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
